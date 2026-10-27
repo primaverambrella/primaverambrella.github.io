@@ -15,7 +15,6 @@
   const uid = (params.get('uid') || '').slice(0, 64);
   const email = (params.get('email') || '').slice(0, 254);
 
-  if (params.get('checkout') === 'done') $('[data-checkout-done]').hidden = false;
   if (params.get('period') === 'monthly') period = 'monthly';
 
   function showPeriod() {
@@ -42,7 +41,10 @@
   s.src = 'https://cdn.paddle.com/paddle/v2/paddle.js';
   s.onload = () => {
     if (cfg.env === 'sandbox') Paddle.Environment.set('sandbox');
-    Paddle.Initialize({ token: cfg.token });
+    Paddle.Initialize({
+      token: cfg.token,
+      eventCallback: (ev) => { if (ev && ev.name === 'checkout.completed') onPaid(ev.data || {}); },
+    });
   };
   s.onerror = () => { note.textContent = 'Checkout could not load. Turn off blockers for this page or try another browser.'; };
   document.head.appendChild(s);
@@ -51,10 +53,45 @@
     if (!window.Paddle) return;
     const opts = {
       items: [{ priceId: cfg.prices[period], quantity: 1 }],
-      settings: { displayMode: 'overlay', theme: 'light', successUrl: location.origin + location.pathname + '?checkout=done' },
+      settings: { displayMode: 'overlay', theme: 'light' },
       customData: uid ? { uid } : undefined,
     };
     if (email) opts.customer = { email };
     Paddle.Checkout.open(opts);
+  });
+
+  // После оплаты: просим у сервера Slideport личный ключ. Подписка появляется в Paddle
+  // через пару секунд после оплаты, поэтому несколько попыток.
+  async function onPaid(data) {
+    const box = $('[data-checkout-done]');
+    const out = $('[data-license]');
+    box.hidden = false;
+    out.textContent = 'Getting your key…';
+    setTimeout(() => { try { Paddle.Checkout.close(); } catch (e) {} box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 2500);
+    const customer = data.customer && data.customer.id;
+    // Если ключ не успел прийти, после перезагрузки страница попробует снова.
+    try { customer && sessionStorage.setItem('slideportCustomer', customer); } catch (e) {}
+    const api = typeof SLIDEPORT_API === 'object' ? SLIDEPORT_API : null;
+    if (!customer || !api) { out.textContent = 'Write to us and we\'ll send your key.'; return; }
+    for (let i = 0; i < 10; i++) {
+      try {
+        const r = await fetch(api.base + '/license?customer=' + encodeURIComponent(customer) + '&key=' + encodeURIComponent(api.key));
+        const j = await r.json();
+        if (r.ok && j.license) {
+          out.textContent = j.license;
+          $('[data-license-email]').textContent = 'Email: ' + j.email + '.';
+          try { sessionStorage.removeItem('slideportCustomer'); } catch (e) {}
+          return;
+        }
+      } catch (e) {}
+      await new Promise((res) => setTimeout(res, 2000));
+    }
+    out.textContent = 'The key is taking longer than usual. Reload in a minute or write to us.';
+  }
+  try { const c = sessionStorage.getItem('slideportCustomer'); if (c) onPaid({ customer: { id: c } }); } catch (e) {}
+  const copy = $('[data-copy]');
+  copy && copy.addEventListener('click', async () => {
+    const t = $('[data-license]').textContent;
+    try { await navigator.clipboard.writeText(t); copy.textContent = 'Copied'; } catch (e) { copy.textContent = 'Select and copy'; }
   });
 })();

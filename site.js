@@ -11,6 +11,9 @@ const SITE = {
 
 // Paddle checkout (pricing page). token: client-side token from Paddle → Developer tools → Authentication.
 // env: 'sandbox' for tests, 'production' after Paddle approves the account.
+// Сервер Slideport: выдаёт личный ключ Pro после оплаты. key — публичный ключ прокси (он же в плагине).
+const SLIDEPORT_API = { base: 'https://html2figma-proxy.asr201.workers.dev', key: 'oHo-4b5243qoVZ3VNZs-soiahnYF0ECZ' };
+
 const PADDLE = {
   env: 'sandbox',
   token: 'test_f10594bfda59ace8f650145b5dc',
