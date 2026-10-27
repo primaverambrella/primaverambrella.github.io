@@ -11,9 +11,10 @@
   const note = $('[data-buy-note]');
   const params = new URLSearchParams(location.search);
 
-  // The plugin opens this page with ?uid=…&email=… so the purchase is tied to the installation.
+  // The plugin opens this page with ?uid=… so the purchase is tied to the installation.
+  // Email is NOT taken from the URL: a crafted link could prefill someone else's address,
+  // and the license key goes to whoever owns the checkout email.
   const uid = (params.get('uid') || '').slice(0, 64);
-  const email = (params.get('email') || '').slice(0, 254);
 
   if (params.get('period') === 'monthly') period = 'monthly';
 
@@ -56,7 +57,6 @@
       settings: { displayMode: 'overlay', theme: 'light' },
       customData: uid ? { uid } : undefined,
     };
-    if (email) opts.customer = { email };
     Paddle.Checkout.open(opts);
   });
 
