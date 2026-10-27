@@ -27,7 +27,11 @@
   showPeriod();
 
   const cfg = typeof PADDLE === 'object' ? PADDLE : null;
-  if (!cfg || !cfg.token || !cfg.prices.yearly || !cfg.prices.monthly) {
+  // Тестовая оплата на живом сайте выключена: иначе любой оформит Pro тестовой картой.
+  // Для проверки — локально или с ?sandbox=1.
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  const sandboxBlocked = cfg && cfg.env === 'sandbox' && !local && params.get('sandbox') !== '1';
+  if (!cfg || !cfg.token || !cfg.prices.yearly || !cfg.prices.monthly || sandboxBlocked) {
     buy.disabled = true;
     buy.textContent = 'Checkout opens soon';
     note.textContent = 'Online checkout is being set up. Until then, the free plan has every feature.';
