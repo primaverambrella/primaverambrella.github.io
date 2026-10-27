@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slideport privacy</title>
+<meta name="description" content="What Slideport sends, what it doesn't, and how to turn statistics off.">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../../"><img src="../../assets/icon-128.png" alt="">Primavera Studio</a>
+    <button class="menu-btn" aria-expanded="false" aria-label="Menu">Menu</button>
+    <ul>
+      <li><a href="../../#slideport">Slideport</a></li>
+      <li><a href="../">Docs</a></li>
+      <li><a href="./" aria-current="page">Privacy</a></li>
+      <li><a href="../#support">Support</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="doc-hero">
+  <div class="wrap">
+    <h1>Slideport privacy policy</h1>
+    <p>Short version: your designs and files stay with you. The plugin sends a page address only when you import by URL, and anonymous usage events you can turn off.</p>
+    <p class="updated">Last updated: October 27, 2026</p>
+  </div>
+</header>
+
+<div class="wrap" style="padding:40px 24px 24px">
+  <main class="prose">
+    <section>
+      <h2>Who we are</h2>
+      <p>Slideport is a Figma plugin made by Primavera Studio, an independent developer. In this policy “we” means Primavera Studio. Questions: <a data-issues href="#">open an issue</a><span data-email-wrap> or write to <a data-email href="#"></a></span>.</p>
+    </section>
+
+    <section>
+      <h2>What stays on your computer</h2>
+      <ul>
+        <li>Your Figma document. The plugin reads selected frames only to build an export file, and that file is created on your computer. Nothing from your Figma file is uploaded to us or anyone else.</li>
+        <li>Files you drop into the plugin: HTML, ZIP, MHTML, EML, PowerPoint and PDF. They are parsed inside the plugin window and never uploaded.</li>
+        <li>Your settings: language, defaults, font substitutions, proxy address. They are stored in Figma's plugin storage on your device.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Importing by URL</h2>
+      <p>When you paste a web address and click <b>Load</b>, the address is sent to the Slideport proxy, a small service on Cloudflare Workers. The proxy downloads that public page, its images, fonts and stylesheets, and passes them back to the plugin. Sites built with JavaScript frameworks are opened in a headless browser on Cloudflare first.</p>
+      <ul>
+        <li>The proxy does not store the pages it fetches and keeps no logs of addresses in its own code. Responses may stay in Cloudflare's cache for up to 5 minutes.</li>
+        <li>Cloudflare, as the hosting provider, processes requests under its own <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">privacy policy</a>.</li>
+        <li>You can set your own proxy in Settings → Proxy for URLs; then requests never reach ours.</li>
+        <li>If you don't import by URL, the proxy is never contacted.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Anonymous usage statistics</h2>
+      <p>To find bugs and see which features are used, the plugin sends anonymous events to PostHog (US region):</p>
+      <ul>
+        <li>the plugin opened, which screen was shown, which button was clicked;</li>
+        <li>for imports and exports: file type and size, number of layers or slides, time taken, export mode, number of missing fonts;</li>
+        <li>error messages, so we can fix them.</li>
+      </ul>
+      <p>Events carry a random installation ID stored in Figma's plugin storage. They contain <b>no</b> design content, texts, file names, page addresses, Figma user names or emails.</p>
+      <div class="callout"><b>Turn it off</b>: Settings → Anonymous statistics. After that no events are sent.</div>
+    </section>
+
+    <section>
+      <h2>Feedback form</h2>
+      <p>If you send feedback from the plugin settings, your message and the optional email you type go to the same PostHog project so we can read and answer it. Leave the email empty to stay anonymous.</p>
+    </section>
+
+    <section>
+      <h2>Payments</h2>
+      <p>Pro is sold through Figma's built-in payments. Figma and its payment processor handle your payment details; we never see them. The plugin only learns from Figma whether you have an active Pro subscription.</p>
+    </section>
+
+    <section>
+      <h2>Children, changes, contact</h2>
+      <p>Slideport is a professional design tool and is not aimed at children. If this policy changes, the date at the top changes too. Questions or requests to delete feedback you sent: <a data-issues href="#">open an issue</a><span data-email-wrap> or email <a data-email href="#"></a></span>.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="bottom" style="margin-top:0;border-top:0;padding-top:0">
+      <span>© <span data-year>2026</span> Primavera Studio · <a href="../">Docs</a></span>
+      <span>Figma is a trademark of Figma, Inc. Slideport is not affiliated with Figma.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../../site.js"></script>
+</body>
+</html>
