@@ -3,7 +3,7 @@
 // email: support address; leave empty to hide it.
 const SITE = {
   community: '',
-  email: '',
+  email: 'marinekollins@gmail.com',
   issues: 'https://github.com/primaverambrella/primaverambrella.github.io/issues/new',
 };
 
