@@ -13,8 +13,8 @@ const SITE = {
 // env: 'sandbox' for tests, 'production' after Paddle approves the account.
 const PADDLE = {
   env: 'sandbox',
-  token: '',
-  prices: { monthly: '', yearly: '' },
+  token: 'test_f10594bfda59ace8f650145b5dc',
+  prices: { monthly: 'pri_01m5z32kkg4fvt07psh2seq423', yearly: 'pri_01m5z34ck51xa3jkr55xnh4179' },
 };
 
 document.querySelectorAll('[data-community]').forEach((el) => {
