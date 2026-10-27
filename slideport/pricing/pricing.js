@@ -1,21 +1,21 @@
-// Pricing page: period switch and Paddle checkout.
-// Keys and price IDs live in PADDLE in site.js. Until token is set, the button stays disabled.
+// Pricing page: period switch and checkout through Lava.top via the Slideport server.
+// The server creates the invoice and returns Lava.top's payment page; after payment Lava.top
+// sends the buyer back here with ?paid=<contractId>, and we fetch the personal license key.
 (() => {
   const PRICES = {
     yearly: { price: '$29 <small>/ year</small>', sub: 'About $2.40 a month, billed once a year' },
-    monthly: { price: '$4 <small>/ month</small>', sub: 'Billed monthly' },
+    monthly: { price: '$5 <small>/ month</small>', sub: 'Billed monthly' },
   };
   let period = 'yearly';
   const $ = (s) => document.querySelector(s);
   const buy = $('[data-buy]');
   const note = $('[data-buy-note]');
+  const emailIn = $('[data-email-input]');
   const params = new URLSearchParams(location.search);
+  const api = typeof SLIDEPORT_API === 'object' ? SLIDEPORT_API : null;
 
   // The plugin opens this page with ?uid=… so the purchase is tied to the installation.
-  // Email is NOT taken from the URL: a crafted link could prefill someone else's address,
-  // and the license key goes to whoever owns the checkout email.
   const uid = (params.get('uid') || '').slice(0, 64);
-
   if (params.get('period') === 'monthly') period = 'monthly';
 
   function showPeriod() {
@@ -26,69 +26,65 @@
   document.querySelectorAll('[data-period]').forEach((b) => b.addEventListener('click', () => { period = b.dataset.period; showPeriod(); }));
   showPeriod();
 
-  const cfg = typeof PADDLE === 'object' ? PADDLE : null;
-  // Тестовая оплата на живом сайте выключена: иначе любой оформит Pro тестовой картой.
-  // Для проверки — локально или с ?sandbox=1.
-  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  const sandboxBlocked = cfg && cfg.env === 'sandbox' && !local && params.get('sandbox') !== '1';
-  if (!cfg || !cfg.token || !cfg.prices.yearly || !cfg.prices.monthly || sandboxBlocked) {
+  if (!api || !api.base) {
     buy.disabled = true;
     buy.textContent = 'Checkout opens soon';
     note.textContent = 'Online checkout is being set up. Until then, the free plan has every feature.';
     return;
   }
 
-  const s = document.createElement('script');
-  s.src = 'https://cdn.paddle.com/paddle/v2/paddle.js';
-  s.onload = () => {
-    if (cfg.env === 'sandbox') Paddle.Environment.set('sandbox');
-    Paddle.Initialize({
-      token: cfg.token,
-      eventCallback: (ev) => { if (ev && ev.name === 'checkout.completed') onPaid(ev.data || {}); },
-    });
-  };
-  s.onerror = () => { note.textContent = 'Checkout could not load. Turn off blockers for this page or try another browser.'; };
-  document.head.appendChild(s);
-
-  buy.addEventListener('click', () => {
-    if (!window.Paddle) return;
-    const opts = {
-      items: [{ priceId: cfg.prices[period], quantity: 1 }],
-      settings: { displayMode: 'overlay', theme: 'light' },
-      customData: uid ? { uid } : undefined,
-    };
-    Paddle.Checkout.open(opts);
+  // Step 1: the buyer types their email here (Lava.top asks for it anyway; this way the
+  // receipt, the subscription and the license key all use the same address).
+  buy.addEventListener('click', async () => {
+    const email = (emailIn.value || '').trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { emailIn.focus(); emailIn.setCustomValidity('Enter the email for your receipt and license key'); emailIn.reportValidity(); return; }
+    emailIn.setCustomValidity('');
+    buy.disabled = true; buy.textContent = 'Opening checkout…';
+    try {
+      const r = await fetch(api.base + '/checkout?key=' + encodeURIComponent(api.key), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, plan: period, uid, lang: (navigator.language || '').slice(0, 2) }),
+      });
+      const j = await r.json();
+      if (!r.ok || !j.url) throw new Error(j.error || r.status);
+      try { sessionStorage.setItem('slideportContract', j.contractId); } catch (e) {}
+      location.href = j.url;
+    } catch (e) {
+      buy.disabled = false; buy.textContent = 'Get Pro';
+      note.textContent = e.message === 'checkout is not configured' ? 'Online checkout is being set up. Until then, the free plan has every feature.' : 'Checkout could not open. Try again in a minute or write to us.';
+    }
   });
+  emailIn.addEventListener('input', () => emailIn.setCustomValidity(''));
 
-  // После оплаты: просим у сервера Slideport личный ключ. Подписка появляется в Paddle
-  // через пару секунд после оплаты, поэтому несколько попыток.
-  async function onPaid(data) {
+  // Step 2: back from Lava.top. The contract id is kept in sessionStorage (Lava.top's return URL
+  // can't carry it); we ask the server for the key until the payment is confirmed.
+  async function afterPayment(contract) {
     const box = $('[data-checkout-done]');
     const out = $('[data-license]');
     box.hidden = false;
     out.textContent = 'Getting your key…';
-    setTimeout(() => { try { Paddle.Checkout.close(); } catch (e) {} box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 2500);
-    const customer = data.customer && data.customer.id;
-    // Если ключ не успел прийти, после перезагрузки страница попробует снова.
-    try { customer && sessionStorage.setItem('slideportCustomer', customer); } catch (e) {}
-    const api = typeof SLIDEPORT_API === 'object' ? SLIDEPORT_API : null;
-    if (!customer || !api) { out.textContent = 'Write to us and we\'ll send your key.'; return; }
-    for (let i = 0; i < 10; i++) {
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    for (let i = 0; i < 15; i++) {
       try {
-        const r = await fetch(api.base + '/license?customer=' + encodeURIComponent(customer) + '&key=' + encodeURIComponent(api.key));
+        const r = await fetch(api.base + '/license?contract=' + encodeURIComponent(contract) + '&key=' + encodeURIComponent(api.key));
         const j = await r.json();
         if (r.ok && j.license) {
           out.textContent = j.license;
           $('[data-license-email]').textContent = 'Email: ' + j.email + '.';
-          try { sessionStorage.removeItem('slideportCustomer'); } catch (e) {}
+          try { sessionStorage.removeItem('slideportContract'); } catch (e) {}
           return;
         }
+        if (r.status === 410) { out.textContent = 'Write to us from your purchase email and we\'ll send the key.'; return; }
       } catch (e) {}
-      await new Promise((res) => setTimeout(res, 2000));
+      await new Promise((res) => setTimeout(res, 3000));
     }
-    out.textContent = 'The key is taking longer than usual. Reload in a minute or write to us.';
+    out.textContent = 'The payment is still being confirmed. Reload this page in a minute, or write to us.';
   }
-  try { const c = sessionStorage.getItem('slideportCustomer'); if (c) onPaid({ customer: { id: c } }); } catch (e) {}
+  let contract = '';
+  try { contract = sessionStorage.getItem('slideportContract') || ''; } catch (e) {}
+  if (params.get('paid') && contract) afterPayment(contract);
+  else if (params.get('checkout') === 'failed') { note.textContent = 'The payment didn\'t go through. Nothing was charged; you can try again.'; }
+
   const copy = $('[data-copy]');
   copy && copy.addEventListener('click', async () => {
     const t = $('[data-license]').textContent;

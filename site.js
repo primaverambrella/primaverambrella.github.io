@@ -11,21 +11,13 @@ const SITE = {
   community: '',
   email: 'marinekollins@gmail.com',
   issues: 'https://github.com/primaverambrella/primaverambrella.github.io/issues/new',
-  // legalName: seller's legal name for Terms, if Paddle asks for it; empty shows "Primavera Studio".
+  // legalName: seller's legal name for Terms, if a payment provider asks for it; empty shows "Primavera Studio".
   legalName: '',
 };
 
-// Paddle checkout (pricing page). token: client-side token from Paddle → Developer tools → Authentication.
-// env: 'sandbox' for tests, 'production' after Paddle approves the account.
-// Сервер Slideport: выдаёт личный ключ Pro после оплаты. key — публичный ключ прокси (он же в плагине).
-const SLIDEPORT_API = { base: 'https://html2figma-proxy.asr201.workers.dev', key: 'oHo-4b5243qoVZ3VNZs-soiahnYF0ECZ' };
 
-// Два набора: песочница для проверок и боевой. После одобрения аккаунта Paddle переключить env на 'production'.
-const PADDLE_ENVS = {
-  sandbox: { token: 'test_f10594bfda59ace8f650145b5dc', prices: { monthly: 'pri_01m5z32kkg4fvt07psh2seq423', yearly: 'pri_01m5z34ck51xa3jkr55xnh4179' } },
-  production: { token: 'live_ff679ed9b71e9b17353d0d56e11', prices: { monthly: 'pri_01m5zd4q8mn2p6fvxbxrb48sqz', yearly: 'pri_01m5zd6y898cxwck8xsr94fwg7' } },
-};
-const PADDLE = Object.assign({ env: 'sandbox' }, PADDLE_ENVS.sandbox);
+// Сервер Slideport: создаёт оплату в Lava.top и выдаёт личный ключ Pro. key — публичный ключ прокси (он же в плагине).
+const SLIDEPORT_API = { base: 'https://html2figma-proxy.asr201.workers.dev', key: 'oHo-4b5243qoVZ3VNZs-soiahnYF0ECZ' };
 
 document.querySelectorAll('[data-community]').forEach((el) => {
   if (SITE.community) {

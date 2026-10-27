@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.paddle.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.paddle.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev https://*.paddle.com; frame-src https://*.paddle.com; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Slideport privacy</title>
 <meta name="description" content="What Slideport sends, what it doesn't, and how to turn statistics off.">
 <link rel="icon" type="image/png" href="../../favicon.png">
@@ -82,15 +82,15 @@
 
     <section>
       <h2>Payments</h2>
-      <p>Pro is sold through Paddle.com, our Merchant of Record. Paddle collects your payment and billing details under its own <a href="https://www.paddle.com/legal/privacy" rel="noopener">privacy policy</a>; we never see your card. In our Paddle account we can see your order: email, name, country, plan, amounts and subscription status. We use them only to turn on Pro, answer billing questions and handle refunds.</p>
-      <p>Right after checkout, the pricing page asks the Slideport server on Cloudflare for your personal license key; the key is calculated from your email and is not stored anywhere. When you enter your email and key in <b>Settings → Slideport Pro</b>, the plugin sends them to the same server, which checks the key and asks Paddle whether that email has an active subscription. The server keeps no copy of either. To avoid asking Paddle on every launch, the answer (whether Pro is active and until when) is cached on Cloudflare for up to 10 minutes under a one-way hash of your email. The plugin stores your email and key on your device and re-checks the subscription every few days.</p>
+      <p>Pro is sold through lava.top, a platform for selling digital products. lava.top collects your payment details under its own <a href="https://lava.top" rel="noopener">terms and privacy policy</a>; we never see your card. In our lava.top account we can see your order: email, amount, card mask, plan and subscription status. We use them only to turn on Pro, answer billing questions and handle refunds.</p>
+      <p>Right after checkout, the pricing page asks the Slideport server on Cloudflare for your personal license key; the key is calculated from your email and is not stored anywhere. When you enter your email and key in <b>Settings → Slideport Pro</b>, the plugin sends them to the same server, which checks the key and asks lava.top whether that email has an active subscription. The server keeps no copy of either. To avoid asking lava.top on every launch, the answer (whether Pro is active and until when) is cached on Cloudflare for up to 10 minutes under a one-way hash of your email. The plugin stores your email and key on your device and re-checks the subscription every few days.</p>
     </section>
 
     <section>
       <h2>Technical data</h2>
       <ul>
         <li><b>IP addresses.</b> The Slideport server uses your IP address for a moment to limit the number of requests per minute and stop abuse. It is not stored.</li>
-        <li><b>This website</b> is hosted on GitHub Pages, which, like any web host, receives your IP address and browser details under <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub's privacy statement</a>. Fonts load from Google Fonts, which receives your IP address under <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>. The pricing page loads Paddle's checkout, which may set its own cookies to process payments and prevent fraud. The site itself has no analytics, no ad trackers and no cookies of its own.</li>
+        <li><b>This website</b> is hosted on GitHub Pages, which, like any web host, receives your IP address and browser details under <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub's privacy statement</a>. Fonts load from Google Fonts, which receives your IP address under <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>. When you click Get Pro, you go to the lava.top payment page, which may set its own cookies to process payments and prevent fraud. The site itself has no analytics, no ad trackers and no cookies of its own.</li>
       </ul>
     </section>
 
@@ -99,14 +99,14 @@
       <ul>
         <li>Usage events and feedback are stored by PostHog in the United States and kept for up to 12 months.</li>
         <li>The Slideport server runs on Cloudflare's global network. It stores nothing except the short caches described above.</li>
-        <li>Order records are kept by Paddle for as long as tax and accounting law requires.</li>
+        <li>Order records are kept by lava.top for as long as tax and accounting law requires.</li>
       </ul>
       <p>We process this data to provide the plugin and the Pro subscription you asked for, and, for anonymous statistics and security limits, in our legitimate interest in keeping Slideport working; you can switch statistics off at any time.</p>
     </section>
 
     <section>
       <h2>Your rights</h2>
-      <p>You can ask us what data about you we hold, ask us to correct or delete it, or object to its use. Write from the email in question and we will answer within 30 days. For payment data, you can also contact Paddle directly. If you live in the EU, the UK or another country with data-protection law, you can also complain to your local data-protection authority.</p>
+      <p>You can ask us what data about you we hold, ask us to correct or delete it, or object to its use. Write from the email in question and we will answer within 30 days. For payment data, you can also contact lava.top support directly. If you live in the EU, the UK or another country with data-protection law, you can also complain to your local data-protection authority.</p>
       <p>We never sell your data and never use it for advertising.</p>
     </section>
 

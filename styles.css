@@ -185,3 +185,7 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .license-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 12px 0; }
 .license-row code { font: 700 20px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .04em; background: #fff; border-radius: 10px; padding: 10px 14px; color: var(--ink); word-break: break-all; }
 .license-row .btn { padding: 10px 16px; font-size: 14px; }
+.plan .input.email { width: 100%; margin-top: 22px; padding: 13px 14px; border: 0; border-radius: 12px; font: 500 15px var(--body); background: rgba(255,255,255,.1); color: #fff; }
+.plan .input.email::placeholder { color: rgba(255,255,255,.55); }
+.plan .input.email:focus { outline: 2px solid var(--lime); }
+.plan .buy { margin-top: 12px; }
