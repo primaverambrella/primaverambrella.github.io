@@ -5,6 +5,16 @@ const SITE = {
   community: '',
   email: 'marinekollins@gmail.com',
   issues: 'https://github.com/primaverambrella/primaverambrella.github.io/issues/new',
+  // legalName: seller's legal name for Terms, if Paddle asks for it; empty shows "Primavera Studio".
+  legalName: '',
+};
+
+// Paddle checkout (pricing page). token: client-side token from Paddle → Developer tools → Authentication.
+// env: 'sandbox' for tests, 'production' after Paddle approves the account.
+const PADDLE = {
+  env: 'sandbox',
+  token: '',
+  prices: { monthly: '', yearly: '' },
 };
 
 document.querySelectorAll('[data-community]').forEach((el) => {
@@ -23,6 +33,7 @@ document.querySelectorAll('[data-email]').forEach((el) => {
   if (SITE.email) { el.href = 'mailto:' + SITE.email; if (!el.dataset.keep) el.textContent = SITE.email; }
   else el.closest('[data-email-wrap]')?.remove();
 });
+document.querySelectorAll('[data-legal-name]').forEach((el) => { if (SITE.legalName) el.textContent = SITE.legalName; });
 document.querySelectorAll('[data-issues]').forEach((el) => { el.href = SITE.issues; });
 document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 

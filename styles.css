@@ -171,3 +171,14 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .prose figure img { border-radius: 14px; border: 1px solid var(--line); }
 .prose a { color: var(--blue); }
 .updated { color: var(--ink-3); font-size: 14px; }
+
+/* pricing page */
+.plan .period { display: inline-flex; gap: 4px; padding: 4px; margin-top: 14px; border-radius: 999px; background: rgba(255,255,255,.1); }
+.plan .period button { font: 600 14px var(--body); border: 0; border-radius: 999px; padding: 6px 14px; background: transparent; color: rgba(255,255,255,.75); cursor: pointer; }
+.plan .period button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+.plan .buy { margin-top: 26px; width: 100%; justify-content: center; border: 0; cursor: pointer; font-size: 16px; }
+.plan .buy:disabled { opacity: .55; cursor: default; }
+.plan-note { margin: 14px 0 0; font-size: 13px; color: var(--ink-3); }
+.plan.pro .plan-note { color: rgba(255,255,255,.6); }
+.callout-box { max-width: 880px; margin-bottom: 24px; background: var(--blue-soft); border-radius: 14px; padding: 16px 18px; color: #1B2A63; }
+.callout-box b { color: var(--blue); }
