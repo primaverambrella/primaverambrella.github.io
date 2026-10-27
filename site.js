@@ -1,3 +1,9 @@
+// Не даём встроить сайт в чужую страницу (кликджекинг: прозрачная кнопка «оплатить» поверх приманки).
+// GitHub Pages не умеет слать заголовок frame-ancestors, поэтому так.
+if (window.top !== window.self) {
+  try { window.top.location = window.location.href; } catch (e) { document.documentElement.style.display = 'none'; }
+}
+
 // Links that change after launch live here, in one place.
 // community: Figma Community page of Slideport (after the plugin is approved).
 // email: support address; leave empty to hide it.
