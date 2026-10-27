@@ -16,6 +16,8 @@
 
   // The plugin opens this page with ?uid=… so the purchase is tied to the installation.
   const uid = (params.get('uid') || '').slice(0, 64);
+  // ?promo=CODE applies a Lava.top promo code to the checkout (also used for our own test orders).
+  const promo = (params.get('promo') || '').slice(0, 36);
   if (params.get('period') === 'monthly') period = 'monthly';
 
   function showPeriod() {
@@ -43,7 +45,7 @@
     try {
       const r = await fetch(api.base + '/checkout?key=' + encodeURIComponent(api.key), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, plan: period, uid, lang: (navigator.language || '').slice(0, 2) }),
+        body: JSON.stringify({ email, plan: period, uid, promo, lang: (navigator.language || '').slice(0, 2) }),
       });
       const j = await r.json();
       if (!r.ok || !j.url) throw new Error(j.error || r.status);
@@ -56,8 +58,8 @@
   });
   emailIn.addEventListener('input', () => emailIn.setCustomValidity(''));
 
-  // Step 2: back from Lava.top. The contract id is kept in sessionStorage (Lava.top's return URL
-  // can't carry it); we ask the server for the key until the payment is confirmed.
+  // Step 2: back from Lava.top. It appends ?invoiceId=…&status=success to the return URL;
+  // sessionStorage is a fallback for the rare case the parameters are stripped.
   async function afterPayment(contract) {
     const box = $('[data-checkout-done]');
     const out = $('[data-license]');
@@ -80,10 +82,12 @@
     }
     out.textContent = 'The payment is still being confirmed. Reload this page in a minute, or write to us.';
   }
-  let contract = '';
-  try { contract = sessionStorage.getItem('slideportContract') || ''; } catch (e) {}
-  if (params.get('paid') && contract) afterPayment(contract);
-  else if (params.get('checkout') === 'failed') { note.textContent = 'The payment didn\'t go through. Nothing was charged; you can try again.'; }
+  let contract = params.get('invoiceId') || '';
+  if (!contract) { try { contract = sessionStorage.getItem('slideportContract') || ''; } catch (e) {} }
+  const status = params.get('status');
+  if ((params.get('paid') || status === 'success') && contract && status !== 'failed' && status !== 'cancelled') afterPayment(contract);
+  else if (params.get('checkout') === 'failed' || status === 'failed') { note.textContent = 'The payment didn\'t go through. Nothing was charged; you can try again.'; }
+  else if (status === 'cancelled') { note.textContent = 'Payment cancelled. Nothing was charged.'; }
 
   const copy = $('[data-copy]');
   copy && copy.addEventListener('click', async () => {
