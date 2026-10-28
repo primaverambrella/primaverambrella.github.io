@@ -258,3 +258,76 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .faq-list details[open] summary::after { content: "−"; }
 .faq-list p { color: var(--ink-2); margin: 10px 0 0; }
 .faq-list a { color: var(--blue); }
+
+/* ---------- pricing: three plans on a dark band (landing and pricing page) ---------- */
+.pricing-band { background: radial-gradient(1200px 520px at 50% -10%, rgba(30,107,255,.55), transparent 70%), var(--ink); color: #fff; }
+.pricing-band .section-head { margin-left: auto; margin-right: auto; text-align: center; max-width: 720px; }
+.pricing-band .section-head p { color: rgba(255,255,255,.72); }
+.pricing-band .eyebrow { color: var(--lime); }
+.plans3 { display: grid; grid-template-columns: 1fr 1.12fr 1fr; gap: 18px; align-items: stretch; max-width: 1080px; margin: 0 auto; }
+.plans3 .plan { position: relative; display: flex; flex-direction: column; border-radius: 24px; padding: 32px 28px 28px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.14); color: #fff; }
+.plans3 .plan h3 { font-size: 20px; margin: 0; }
+.plans3 .plan .tag { font-size: 14px; color: rgba(255,255,255,.6); margin-top: 4px; }
+.plans3 .plan .price { font: 800 56px/1 var(--head); letter-spacing: -.04em; margin: 22px 0 6px; }
+.plans3 .plan .price small { font: 500 17px var(--body); letter-spacing: 0; color: rgba(255,255,255,.6); }
+.plans3 .plan .sub { color: rgba(255,255,255,.72); font-size: 14px; min-height: 22px; }
+.plans3 .plan .sub b { color: var(--lime); font-weight: 700; }
+.plans3 .plan ul { list-style: none; padding: 0; margin: 22px 0 26px; display: grid; gap: 10px; font-size: 15px; }
+.plans3 .plan li { display: flex; gap: 10px; align-items: flex-start; }
+.plans3 .plan li::before { content: "✓"; color: var(--lime); font-weight: 800; margin: 0; }
+.plans3 .plan li.dim { color: rgba(255,255,255,.55); }
+.plans3 .plan .cta { margin-top: auto; display: grid; gap: 10px; }
+.plans3 .plan .btn { width: 100%; justify-content: center; }
+.plans3 .plan .btn.outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.35); }
+.plans3 .plan .btn.outline:hover { border-color: #fff; }
+.plans3 .plan .btn.white { background: #fff; color: var(--ink); }
+.plans3 .plan.featured { background: linear-gradient(180deg, rgba(185,245,67,.12), rgba(255,255,255,.05) 40%); border: 2px solid var(--lime); box-shadow: 0 30px 80px -20px rgba(185,245,67,.35); transform: translateY(-10px); }
+.plans3 .badge { position: absolute; top: -13px; left: 28px; padding: 5px 12px; border-radius: 999px; font: 700 12px/1 var(--body); letter-spacing: .04em; text-transform: uppercase; background: var(--lime); color: var(--ink); }
+.plans3 .badge.alt { background: #fff; }
+.plans3 .toggle { display: inline-flex; gap: 4px; padding: 4px; margin-top: 16px; border-radius: 999px; background: rgba(255,255,255,.1); align-self: flex-start; }
+.plans3 .toggle button { font: 600 13px var(--body); border: 0; border-radius: 999px; padding: 6px 14px; background: transparent; color: rgba(255,255,255,.75); cursor: pointer; }
+.plans3 .toggle button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+.plans3 .toggle button .save { color: #3a7d00; font-weight: 700; margin-left: 4px; }
+.plans3 .toggle button[aria-pressed="false"] .save { color: var(--lime); }
+.plans3 .input.email { width: 100%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); color: #fff; }
+.plans3 .input.email::placeholder { color: rgba(255,255,255,.5); }
+.plans3 .plan-note { font-size: 12.5px; color: rgba(255,255,255,.55); margin: 0; }
+.plan-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin: 40px auto 0; padding: 0; list-style: none; color: rgba(255,255,255,.75); font-size: 14px; }
+.plan-trust li::before { content: "✓"; color: var(--lime); font-weight: 800; margin-right: 8px; }
+.pricing-band .compare-line { text-align: center; color: rgba(255,255,255,.6); font-size: 14px; margin-top: 14px; }
+@media (max-width: 900px) {
+  .plans3 { grid-template-columns: 1fr; max-width: 460px; }
+  .plans3 .plan.featured { transform: none; order: -1; }
+}
+
+/* ---------- leads and CTAs ---------- */
+.nav .nav-cta { padding: 10px 16px; font-size: 14px; margin-left: 18px; box-shadow: none; }
+.hero-lead { max-width: 560px; margin: 34px auto 0; }
+.lead-form { display: flex; gap: 8px; padding: 6px; border-radius: 18px; background: #fff; box-shadow: 0 0 0 1.5px var(--line), 0 18px 40px -20px rgba(2,61,236,.35); }
+.lead-form input { flex: 1; min-width: 0; border: 0; outline: none; padding: 0 14px; font: 500 16px var(--body); background: transparent; color: var(--ink); }
+.lead-form .btn { padding: 14px 20px; white-space: nowrap; }
+.lead-form.dark { background: rgba(255,255,255,.1); box-shadow: 0 0 0 1.5px rgba(255,255,255,.25); }
+.lead-form.dark input { color: #fff; }
+.lead-form.dark input::placeholder { color: rgba(255,255,255,.55); }
+.lead-form.done { display: none; }
+.lead-msg { font-size: 13.5px; color: var(--ink-3); margin: 10px 0 0; }
+.hero .lead-msg { text-align: center; }
+.hero-links { font-size: 15px; margin: 14px 0 0 !important; color: var(--ink-2); }
+.hero-links a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.cta-band { background: linear-gradient(120deg, var(--blue), #3b2bff 60%, #0a1aa8); color: #fff; padding: 56px 0; }
+.cta-band .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; }
+.cta-band h2 { font-size: clamp(28px, 3.6vw, 40px); line-height: 1.08; margin: 0; color: #fff; }
+.cta-band p { color: rgba(255,255,255,.8); margin: 10px 0 0; }
+.cta-band .lead-msg { color: rgba(255,255,255,.75); }
+.cta-band.final { background: radial-gradient(900px 400px at 80% 0, rgba(185,245,67,.25), transparent 60%), var(--ink); }
+.center-cta { text-align: center; margin-top: 36px; }
+@media (max-width: 900px) { .cta-band .wrap { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .lead-form { flex-direction: column; padding: 8px; }
+  .lead-form input { padding: 12px 10px; }
+  .lead-form .btn { width: 100%; justify-content: center; }
+  .nav .nav-cta { display: none; }
+}
+.hero .lead-msg { font-size: 14px; margin: 12px auto 0; color: var(--ink-3); max-width: none; }
+.hero .hero-links { font-size: 15px; margin: 10px auto 0 !important; max-width: none; }
+.cta-band.final + .footer { margin-top: 0; }

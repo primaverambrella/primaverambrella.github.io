@@ -2,66 +2,18 @@
 // The server creates the invoice and returns Lava.top's payment page; after payment Lava.top
 // sends the buyer back here with ?paid=<contractId>, and we fetch the personal license key.
 (() => {
-  const PRICES = {
-    yearly: { price: '$29 <small>/ year</small>', sub: 'About $2.40 a month, billed once a year' },
-    monthly: { price: '$5 <small>/ month</small>', sub: 'Billed monthly' },
-    lifetime: { price: '$79 <small>once</small>', sub: 'Pay once, Pro forever, every future update included', refund: '14-day money-back guarantee, no subscription' },
-  };
-  const REFUND = '14-day money-back guarantee, cancel any time';
-  let period = 'yearly';
   const $ = (s) => document.querySelector(s);
-  const buy = $('[data-buy]');
-  const note = $('[data-buy-note]');
-  const emailIn = $('[data-email-input]');
   const params = new URLSearchParams(location.search);
   const api = typeof SLIDEPORT_API === 'object' ? SLIDEPORT_API : null;
+  const proCard = $('[data-pro-card]');
+  // The period switch itself lives in site.js (shared with the landing); here we only preselect it.
+  const want = params.get('period');
+  if (want === 'monthly' && proCard) proCard.querySelector('[data-pro-period="monthly"]')?.click();
+  if (want === 'lifetime') setTimeout(() => document.getElementById('lifetime')?.scrollIntoView({ block: 'center' }), 50);
 
-  // The plugin opens this page with ?uid=… so the purchase is tied to the installation.
-  const uid = (params.get('uid') || '').slice(0, 64);
-  // ?promo=CODE applies a Lava.top promo code to the checkout (also used for our own test orders).
-  const promo = (params.get('promo') || '').slice(0, 36);
-  if (params.get('period') === 'monthly' || params.get('period') === 'lifetime') period = params.get('period');
-
-  function showPeriod() {
-    document.querySelectorAll('[data-period]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.period === period)));
-    $('[data-price]').innerHTML = PRICES[period].price;
-    $('[data-price-sub]').textContent = PRICES[period].sub;
-    $('[data-refund-note]').textContent = PRICES[period].refund || REFUND;
-  }
-  document.querySelectorAll('[data-period]').forEach((b) => b.addEventListener('click', () => { period = b.dataset.period; showPeriod(); }));
-  showPeriod();
-
-  if (!api || !api.base) {
-    buy.disabled = true;
-    buy.textContent = 'Checkout opens soon';
-    note.textContent = 'Online checkout is being set up. Until then, the free plan has every feature.';
-    return;
-  }
-
-  // Step 1: the buyer types their email here (Lava.top asks for it anyway; this way the
-  // receipt, the subscription and the license key all use the same address).
-  buy.addEventListener('click', async () => {
-    const email = (emailIn.value || '').trim();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { emailIn.focus(); emailIn.setCustomValidity('Enter the email for your receipt and license key'); emailIn.reportValidity(); return; }
-    emailIn.setCustomValidity('');
-    buy.disabled = true; buy.textContent = 'Opening checkout…';
-    try {
-      const r = await fetch(api.base + '/checkout?key=' + encodeURIComponent(api.key), {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, plan: period, uid, promo, lang: (navigator.language || '').slice(0, 2) }),
-      });
-      const j = await r.json();
-      if (!r.ok || !j.url) throw new Error(j.error || r.status);
-      try { sessionStorage.setItem('slideportContract', j.contractId); } catch (e) {}
-      location.href = j.url;
-    } catch (e) {
-      buy.disabled = false; buy.textContent = 'Get Pro';
-      note.textContent = e.message === 'checkout is not configured' ? 'Online checkout is being set up. Until then, the free plan has every feature.'
-        : e.message === 'lifetime is not configured' ? 'Lifetime opens very soon. Yearly and monthly plans are available now.'
-        : 'Checkout could not open. Try again in a minute or write to us.';
-    }
-  });
-  emailIn.addEventListener('input', () => emailIn.setCustomValidity(''));
+  // Buying from the cards lives in site.js (the landing has the same cards).
+  const note = (proCard && proCard.querySelector('[data-buy-note]')) || $('[data-buy-note]');
+  if (!api || !api.base) return;
 
   // Step 2: back from Lava.top. It appends ?invoiceId=…&status=success to the return URL;
   // sessionStorage is a fallback for the rare case the parameters are stripped.

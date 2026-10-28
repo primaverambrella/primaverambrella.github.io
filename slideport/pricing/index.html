@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Slideport pricing</title>
-<meta name="description" content="Slideport is free for 15 imports and 3 exports a month. Pro removes the limits: $5 a month or $29 a year.">
+<meta name="description" content="Slideport is free for 15 imports and 3 exports a month. Pro removes the limits: $5 a month, $29 a year or $79 once.">
 <meta property="og:title" content="Slideport pricing">
-<meta property="og:description" content="Free for 15 imports and 3 exports a month. Pro: $5 a month or $29 a year.">
+<meta property="og:description" content="Free for 15 imports and 3 exports a month. Pro: $5 a month, $29 a year or $79 once.">
 <meta property="og:image" content="https://primaverambrella.github.io/assets/og.jpg">
 <link rel="icon" type="image/png" href="../../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,39 +45,77 @@
     <span data-license-email></span> Save the key: it's also how you turn on Pro on another computer. Lost it? <span data-email-wrap>Write to <a data-email href="#"></a>.</span>
   </div>
 
-  <div class="plans">
-    <div class="plan">
-      <h3>Free</h3>
-      <div class="price">$0</div>
-      <div class="sub">No account, no card</div>
-      <ul>
-        <li>15 imports a month</li>
-        <li>3 exports a month: PowerPoint, PDF or HTML</li>
-        <li>Every format and every setting</li>
-      </ul>
-      <p class="plan-note">Starts as soon as you open the plugin. Limits reset on the 1st of every month.</p>
+</div>
+<section class="section pricing-band" style="padding-top:56px">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Plans</p>
+      <h2>Start free. Go Pro when it pays off.</h2>
+      <p>Every install starts with 7 days of Pro — no card, no account. Every format and every setting is in every plan.</p>
     </div>
-    <div class="plan pro">
-      <h3>Pro</h3>
-      <div class="period" role="group" aria-label="Billing period">
-        <button type="button" data-period="yearly" aria-pressed="true">Yearly</button>
-        <button type="button" data-period="monthly" aria-pressed="false">Monthly</button>
-        <button type="button" data-period="lifetime" aria-pressed="false">Lifetime</button>
+    <div class="plans3">
+      <div class="plan">
+        <h3>Free</h3>
+        <div class="tag">For the occasional file</div>
+        <div class="price">$0</div>
+        <div class="sub">Forever. No account, no card.</div>
+        <ul>
+          <li>15 imports a month</li>
+          <li>3 exports a month: PowerPoint, PDF or HTML</li>
+          <li>Every format and every setting</li>
+          <li>Limits reset on the 1st of every month</li>
+        </ul>
+        <div class="cta"><a class="btn outline" href="../../#top-lead">Get it free</a></div>
       </div>
-      <div class="price" data-price>$29 <small>/ year</small></div>
-      <div class="sub" data-price-sub>About $2.40 a month, billed once a year</div>
-      <ul>
-        <li>Unlimited imports</li>
-        <li>Unlimited exports</li>
-        <li>7-day free trial in the plugin, no card</li>
-        <li data-refund-note>14-day money-back guarantee, cancel any time</li>
-      </ul>
-      <input class="input email" type="email" autocomplete="email" placeholder="Your email for the receipt and key" data-email-input>
-      <button class="btn lime buy" type="button" data-buy>Get Pro</button>
-      <p class="plan-note" data-buy-note>Prices in USD. Card, Apple Pay or PayPal on the secure lava.top payment page.</p>
+      <div class="plan featured" data-pro-card data-buy-card="pro">
+        <span class="badge">Most popular</span>
+        <h3>Pro</h3>
+        <div class="tag">For designers who import and export every week</div>
+        <div class="toggle" role="group" aria-label="Billing period">
+          <button type="button" data-pro-period="yearly" aria-pressed="true">Yearly <span class="save">−52%</span></button>
+          <button type="button" data-pro-period="monthly" aria-pressed="false">Monthly</button>
+        </div>
+        <div class="price" data-pro-price>$29 <small>/ year</small></div>
+        <div class="sub" data-pro-sub>Just <b>$2.42 a month</b> — 52% less than monthly</div>
+        <ul>
+          <li>Unlimited imports and exports</li>
+          <li>Design system from any import</li>
+          <li>Batch import, update in place, HTML editor</li>
+          <li>Up to 3 Figma accounts</li>
+        </ul>
+        <div class="cta">
+          <input class="input email" type="email" autocomplete="email" placeholder="Email for the receipt and license key" data-email-input>
+          <button class="btn lime buy" type="button" data-buy>Get Pro</button>
+          <p class="plan-note" data-buy-note>14-day money-back guarantee, cancel any time.</p>
+        </div>
+      </div>
+      <div class="plan" data-buy-card="lifetime" id="lifetime">
+        <span class="badge alt">Best value</span>
+        <h3>Lifetime</h3>
+        <div class="tag">Pay once, own it</div>
+        <div class="price">$79 <small>once</small></div>
+        <div class="sub">Everything in Pro, <b>forever</b></div>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Every future update included</li>
+          <li>No subscription to cancel</li>
+        </ul>
+        <div class="cta">
+          <input class="input email" type="email" autocomplete="email" placeholder="Email for the receipt and license key" data-email-input>
+          <button class="btn white buy" type="button" data-buy>Buy once — $79</button>
+          <p class="plan-note" data-buy-note>14-day money-back guarantee.</p>
+        </div>
+      </div>
     </div>
+    <ul class="plan-trust">
+      <li>7-day Pro trial in the plugin, no card</li>
+      <li>14-day money-back guarantee</li>
+      <li>Secure checkout by lava.top: card, Apple Pay, PayPal</li>
+      <li>Prices in USD</li>
+    </ul>
   </div>
-
+</section>
+<div class="wrap">
   <main class="prose" style="margin-top:48px">
     <section>
       <h2>How buying works</h2>
