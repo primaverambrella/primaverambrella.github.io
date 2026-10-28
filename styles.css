@@ -370,3 +370,11 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .plans3 .countdown { margin: 10px 0 0; padding: 8px 12px; border-radius: 10px; background: rgba(185,245,67,.12); font-size: 14px; color: rgba(255,255,255,.85); }
 .plans3 .countdown b { color: var(--lime); font-variant-numeric: tabular-nums; }
 .plans3 .countdown[hidden] { display: none; }
+
+/* analytics consent: small card bottom-left, equal buttons */
+.consent { position: fixed; left: 16px; bottom: 16px; z-index: 50; max-width: 420px; padding: 16px 18px; border-radius: 16px; background: #fff; color: var(--ink); border: 1px solid var(--line); box-shadow: 0 20px 50px -12px rgba(11,18,32,.35); font-size: 14px; line-height: 1.5; }
+.consent p { margin: 0 0 12px; }
+.consent a { color: var(--blue); }
+.consent div { display: flex; gap: 8px; }
+.consent .btn { flex: 1; justify-content: center; padding: 10px 14px; font-size: 14px; box-shadow: none; }
+@media (max-width: 640px) { .consent { left: 8px; right: 8px; bottom: 8px; max-width: none; } }

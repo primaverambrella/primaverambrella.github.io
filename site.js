@@ -13,6 +13,8 @@ const SITE = {
   issues: 'https://github.com/primaverambrella/primaverambrella.github.io/issues/new',
   // legalName: seller's legal name for Terms, if a payment provider asks for it; empty shows "Primavera Studio".
   legalName: '',
+  // clarity: Microsoft Clarity project ID (clarity.microsoft.com → Settings → Overview). Empty = no analytics, no banner.
+  clarity: '',
 };
 
 
@@ -235,3 +237,55 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && !timer && !car.dataset.touched) play(); else if (!e.isIntersecting) stop(); }), { threshold: .5 }).observe(car);
   [car.querySelector('.car-tabs'), car.querySelector('.car-view')].forEach((el) => el.addEventListener('pointerdown', () => { car.dataset.touched = '1'; }));
 });
+
+// ---------- site analytics: Microsoft Clarity, only after the visitor allows it ----------
+// Like Yandex Metrica: visits, sources, heatmaps of clicks and scrolls, session recordings.
+// Until the visitor clicks Allow nothing loads; the choice is remembered on this device.
+(() => {
+  if (!SITE.clarity) return;
+  const KEY = 'slideportAnalytics';
+  const get = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const set = (v) => { try { localStorage.setItem(KEY, v); } catch (e) {} };
+  let loaded = false;
+  const load = () => {
+    if (loaded) return; loaded = true;
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', SITE.clarity);
+    window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+    // Every button and link click becomes a named event, so the dashboard shows which CTA people press.
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('a, button');
+      if (!el || !window.clarity) return;
+      const name = (el.getAttribute('aria-label') || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+      if (name) window.clarity('event', 'click: ' + name);
+      if (el.matches('[data-buy]')) window.clarity('event', 'checkout: ' + (el.closest('[data-buy-card]')?.dataset.buyCard || ''));
+    }, true);
+    document.addEventListener('submit', (e) => { const f = e.target.closest('[data-lead-form]'); if (f && window.clarity) window.clarity('event', 'lead: ' + f.dataset.leadForm); }, true);
+  };
+  const banner = () => {
+    if (document.querySelector('.consent')) return;
+    const box = document.createElement('div');
+    box.className = 'consent'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Analytics');
+    box.innerHTML = '<p>We\'d like to see how people use this site — clicks and scrolls, with Microsoft Clarity — to make it better. No ads, no selling data. <a href="/slideport/privacy/#analytics">Details</a></p>'
+      + '<div><button type="button" class="btn outline" data-c="no">No thanks</button><button type="button" class="btn primary" data-c="yes">Allow</button></div>';
+    box.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-c]'); if (!b) return;
+      const yes = b.dataset.c === 'yes';
+      set(yes ? 'yes' : 'no');
+      if (yes) load(); else if (loaded && window.clarity) window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'denied' });
+      box.remove();
+    });
+    document.body.appendChild(box);
+  };
+  const choice = get();
+  if (choice === 'yes') load(); else if (choice !== 'no') banner();
+  // «Analytics settings» in the footer reopens the choice.
+  document.querySelectorAll('.footer .bottom').forEach((row) => {
+    const a = document.createElement('a'); a.href = '#'; a.textContent = 'Analytics settings';
+    a.addEventListener('click', (e) => { e.preventDefault(); banner(); });
+    row.appendChild(a);
+  });
+})();
