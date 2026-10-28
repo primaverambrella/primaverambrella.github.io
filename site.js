@@ -353,8 +353,24 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   // the floor shudders on impact, then after three seconds the blocks float back into place.
   const collapse = () => {
     fallen = true;
-    const all = [...document.querySelectorAll(SHAKE)].filter((el) => !el.closest('.nav, .launch-bar, .consent'));
-    const tops = all.filter((el) => !all.some((o) => o !== el && o.contains(el)));
+    // Everything on screen falls: break the page into pieces no taller than half the window;
+    // a scroll box (the screenshot carousel) falls whole, so nothing gets cut off inside it.
+    const SKIP = '.nav, .launch-bar, .consent, .cursor-glow, .click-burst, script, style, link, meta, br';
+    const tops = [];
+    const walk = (el) => {
+      for (const c of el.children) {
+        if (c.matches(SKIP)) continue;
+        const cs = getComputedStyle(c);
+        if (cs.display === 'none' || cs.position === 'fixed') continue;
+        const r = c.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight || r.width === 0 || r.height === 0) continue;
+        const scrollBox = /auto|scroll/.test(cs.overflowX + cs.overflowY);
+        const ownText = [...c.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+        if (scrollBox || ownText || !c.children.length || r.height < innerHeight * .5 && r.width < innerWidth * .95) tops.push(c);
+        else walk(c);
+      }
+    };
+    walk(document.body);
     const root = document.documentElement, prevOverflow = root.style.overflow;
     const keepY = scrollY;
     root.style.overflow = 'hidden'; root.classList.add('collapsed');
@@ -388,7 +404,7 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
       if (!left) { root.style.overflow = prevOverflow; root.classList.remove('collapsed'); fallen = false; return; }
       falls.forEach(({ el, end, a }, i) => {
         const back = el.animate([{ transform: end }, { transform: 'translate(0, 0) rotate(0deg)' }],
-          { duration: 1100, delay: i * 18, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards', composite: 'add' });
+          { duration: 1100, delay: Math.min(i * 12, 500), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards', composite: 'add' });
         a.cancel();
         back.addEventListener('finish', () => { el.style.zIndex = ''; if (el.style.position === 'relative' && !el.dataset.keepPos) el.style.position = ''; });
         back.onfinish = () => { if (--left === 0) { root.style.overflow = prevOverflow; root.classList.remove('collapsed'); scrollTo(0, keepY); fallen = false; } };
