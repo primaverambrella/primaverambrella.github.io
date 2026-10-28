@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev https://*.clarity.ms; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
-<title>Slideport — HTML, PowerPoint, Word and PDF to Figma, and back</title>
-<meta name="description" content="One Figma plugin for everything that goes in and out of Figma. Websites, AI-generated pages, PowerPoint, Word and PDF become editable layers with your brand as styles and variables. Export editable PowerPoint, vector PDF, HTML or React. $5 a month.">
-<meta property="og:title" content="Slideport — everything into Figma, and back out">
-<meta property="og:description" content="Websites, AI pages, PowerPoint, Word and PDF into editable Figma layers. Out as editable PowerPoint, vector PDF, a website or React. One plugin instead of five.">
+<title>Slideport — PowerPoint, Word and PDF to Figma, and back</title>
+<meta name="description" content="A Figma plugin for Office files, both ways. PowerPoint, Word and PDF become editable Figma layers with your brand as styles and variables. Export editable PowerPoint, vector PDF or Google Slides. Files stay on your computer. $5 a month.">
+<meta property="og:title" content="Slideport — PowerPoint, Word and PDF to Figma, and back">
+<meta property="og:description" content="PowerPoint, Word and PDF into editable Figma layers. Out as editable PowerPoint, vector PDF or Google Slides. Files never leave your computer.">
 <meta property="og:image" content="https://primaverambrella.github.io/assets/og.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -37,15 +37,15 @@
 <header class="hero">
   <div class="wrap">
     <span class="pill"><i></i>New: Word, charts, design systems, Figma Slides</span>
-    <h1>Everything into Figma.<br><em>Everything back out.</em></h1>
-    <p class="hero-sub">Websites, AI-generated pages, PowerPoint, Word and PDF become real, editable Figma layers — your brand already turned into styles and variables. Then hand it back as editable PowerPoint, a vector PDF, a website or React.</p>
+    <h1>PowerPoint, Word, PDF into Figma.<br><em>And back out.</em></h1>
+    <p class="hero-sub">Client decks, Word briefs and PDF reports become real, editable Figma layers — your brand already turned into styles and variables. Then send it back as an editable PowerPoint, a vector PDF or a deck for Google Slides.</p>
     <div class="hero-lead" id="top-lead">
       <form class="lead-form dark" data-lead-form="hero" novalidate><input type="email" autocomplete="email" placeholder="Your work email" aria-label="Email"><button class="btn lime" type="submit">Get Slideport free</button></form>
       <p class="lead-msg" data-lead-msg>Install link the day Slideport goes live — plus 7 days of Pro. No spam.</p>
       <p class="hero-links"><a href="#pricing">See plans from $2.42/month →</a></p>
     </div>
     <ul class="trust">
-      <li>One plugin instead of five</li>
+      <li>Both directions in one plugin</li>
       <li>7 days of Pro, no card</li>
       <li>Files never leave your computer</li>
       <li>10 languages</li>
@@ -54,13 +54,13 @@
     <div class="hero-shot carousel" data-carousel>
       <div class="car-tabs" role="tablist" aria-label="Screenshots">
         <button type="button" role="tab" aria-selected="true"><span>01</span>Drop a file or paste a link<i></i></button>
-        <button type="button" role="tab" aria-selected="false"><span>02</span>A website as layers with Auto Layout<i></i></button>
+        <button type="button" role="tab" aria-selected="false"><span>02</span>PowerPoint as editable layers<i></i></button>
         <button type="button" role="tab" aria-selected="false"><span>03</span>Frames to an editable .pptx<i></i></button>
       </div>
       <div class="car-view">
         <div class="car-track" tabindex="0" aria-label="Screenshots, swipe or use arrow keys">
           <figure><img src="assets/screenshot-1-import.webp" srcset="assets/screenshot-1-import-900.webp 900w, assets/screenshot-1-import.webp 1600w" sizes="(max-width: 1000px) 100vw, 1100px" decoding="async" fetchpriority="high" alt="Slideport import tab in Figma" width="1600" height="960"></figure>
-          <figure><img src="assets/screenshot-2-website.webp" srcset="assets/screenshot-2-website-900.webp 900w, assets/screenshot-2-website.webp 1600w" sizes="(max-width: 1000px) 100vw, 1100px" decoding="async" fetchpriority="low" alt="A website imported into Figma as layers" width="1600" height="960"></figure>
+          <figure><img src="assets/screenshot-2-office.webp" srcset="assets/screenshot-2-office-900.webp 900w, assets/screenshot-2-office.webp 1600w" sizes="(max-width: 1000px) 100vw, 1100px" decoding="async" fetchpriority="low" alt="A PowerPoint deck imported into Figma as editable layers" width="1600" height="960"></figure>
           <figure><img src="assets/screenshot-3-powerpoint.webp" srcset="assets/screenshot-3-powerpoint-900.webp 900w, assets/screenshot-3-powerpoint.webp 1600w" sizes="(max-width: 1000px) 100vw, 1100px" decoding="async" fetchpriority="low" alt="Figma frames exported to PowerPoint" width="1600" height="960"></figure>
         </div>
         <button type="button" class="car-arrow prev" aria-label="Previous">‹</button>
@@ -75,12 +75,12 @@
     <div class="flow-row">
       <div class="flow-side">
         <span class="flow-label">In</span>
-        <span class="chip">URL</span><span class="chip">HTML</span><span class="chip">AI pages</span><span class="chip">PPTX</span><span class="chip">DOCX</span><span class="chip">PDF</span>
+        <span class="chip">PowerPoint</span><span class="chip">Word</span><span class="chip">PDF</span>
       </div>
       <span class="flow-hub"><img src="assets/icon-128.png" alt="" width="44" height="44"></span>
       <div class="flow-side">
         <span class="flow-label">Out</span>
-        <span class="chip">PPTX</span><span class="chip">Google Slides</span><span class="chip">PDF</span><span class="chip">HTML</span><span class="chip">Tailwind</span><span class="chip">React</span>
+        <span class="chip">PowerPoint</span><span class="chip">Google Slides</span><span class="chip">PDF</span>
       </div>
     </div>
   </div>
@@ -95,29 +95,29 @@
     </div>
     <div class="jobs">
       <article class="job">
-        <span class="fmt">URL · HTML</span>
-        <h3>Redesign a live site — or an AI-generated page</h3>
-        <p>Paste a link or drop the HTML you made in Claude, v0, Lovable or Cursor. Frames with Auto Layout, real text, full-resolution images. Desktop, tablet and phone in one go.</p>
+        <span class="fmt">PPTX</span>
+        <h3>Make a client's deck editable</h3>
+        <p>That 40-slide deck becomes 40 frames. Text keeps its fonts and mixed styles, tables stay tables, charts become editable bars, lines and labels.</p>
       </article>
       <article class="job">
-        <span class="fmt">PPTX · DOCX · PDF</span>
-        <h3>Make a client's files editable</h3>
-        <p>That 40-slide deck, a Word brief, a PDF report — every slide or page becomes a frame. Tables, bullets and charts stay editable, notes land as stickies.</p>
+        <span class="fmt">DOCX</span>
+        <h3>Turn a Word brief into layouts</h3>
+        <p>Headings, lists, tables, pictures and links land as frames at the real page size, ready to design over. No retyping.</p>
+      </article>
+      <article class="job">
+        <span class="fmt">PDF</span>
+        <h3>Edit a PDF instead of tracing it</h3>
+        <p>Pick pages from thumbnails. Text comes in as paragraphs, vector art stays vector, pages keep their real size.</p>
       </article>
       <article class="job">
         <span class="fmt">Styles · Variables</span>
         <h3>Get a design system in one switch</h3>
-        <p>Colors, fonts, spacing and radii become Figma styles and variables, and every layer is linked to them. Change one color — the whole deck follows.</p>
+        <p>Theme colors, fonts, spacing and radii become Figma styles and variables, and every layer is linked to them. Change one color — the whole deck follows.</p>
       </article>
       <article class="job">
         <span class="fmt">PPTX · Google Slides</span>
         <h3>Deliver decks people can edit</h3>
         <p>Shapes stay shapes, icons are native PowerPoint shapes, tables are tables. Your brand goes into the theme and fonts are embedded.</p>
-      </article>
-      <article class="job">
-        <span class="fmt">HTML · Tailwind · React</span>
-        <h3>Hand off to developers</h3>
-        <p>Download a small website with flexbox and self-hosted fonts, or copy the selection as HTML + CSS, Tailwind or a React component.</p>
       </article>
       <article class="job">
         <span class="fmt">PDF</span>
@@ -132,7 +132,7 @@
   <div class="wrap">
     <div class="cta-card">
       <div>
-        <h2>Stop retyping slides.<br><em>Stop redrawing websites.</em></h2>
+        <h2>Stop retyping slides.<br><em>Stop redrawing reports.</em></h2>
         <p>15 imports a month free, forever. 7 days of unlimited Pro on install.</p>
       </div>
       <div>
@@ -152,7 +152,7 @@
         <p>Turn on <b>Import as a design system</b> and the import doesn't just land on the canvas — it organises itself.</p>
       </div>
       <ul class="ticks">
-        <li><span><b>Color styles and variables</b>, named after your CSS variables or the PowerPoint theme</span></li>
+        <li><span><b>Color styles and variables</b>, named after the PowerPoint theme — Accent 1, Dark 2</span></li>
         <li><span><b>Text styles</b> for every heading, body and caption size</span></li>
         <li><span><b>Spacing and radius variables</b> bound to paddings, gaps and corners</span></li>
         <li><span><b>Every layer linked</b> — edit a style, the whole file updates</span></li>
@@ -167,19 +167,19 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Why Slideport</p>
-      <h2>One plugin instead of<br><em>five subscriptions.</em></h2>
-      <p>Most teams stitch this together from separate plugins — websites, PDF, Office files, PowerPoint export, code. Each with its own limits and its own bill.</p>
+      <h2>One plugin instead of<br><em>a stack of subscriptions.</em></h2>
+      <p>Most teams stitch this together from separate plugins — one for PowerPoint, one for PDF, one for export. Each with its own limits and its own bill.</p>
     </div>
     <div class="compare" role="table" aria-label="Slideport compared with a typical plugin stack">
       <div class="row head" role="row"><span role="columnheader">What you need</span><span role="columnheader">Slideport</span><span role="columnheader">Typical stack</span></div>
-      <div class="row" role="row"><span role="cell">Website, HTML and AI pages → Figma</span><span role="cell" class="yes">Included</span><span role="cell">A separate plugin, often from $12/month</span></div>
-      <div class="row" role="row"><span role="cell">PowerPoint and Word → Figma</span><span role="cell" class="yes">Included</span><span role="cell">Another plugin, or credits per slide</span></div>
+      <div class="row" role="row"><span role="cell">PowerPoint → Figma</span><span role="cell" class="yes">Included</span><span role="cell">A separate plugin, or credits per slide</span></div>
+      <div class="row" role="row"><span role="cell">Word → Figma</span><span role="cell" class="yes">Included</span><span role="cell">Rarely offered</span></div>
       <div class="row" role="row"><span role="cell">PDF → Figma, pages from thumbnails</span><span role="cell" class="yes">Included</span><span role="cell">Another plugin; free tiers often stop at 3 pages</span></div>
       <div class="row" role="row"><span role="cell">Charts as editable layers</span><span role="cell" class="yes">Included</span><span role="cell">Usually a picture or a placeholder</span></div>
-      <div class="row" role="row"><span role="cell">Brand → styles, variables, linked layers</span><span role="cell" class="yes">Included</span><span role="cell">Rarely offered</span></div>
+      <div class="row" role="row"><span role="cell">Theme → styles, variables, linked layers</span><span role="cell" class="yes">Included</span><span role="cell">Rarely offered</span></div>
       <div class="row" role="row"><span role="cell">Figma → editable PowerPoint with brand theme</span><span role="cell" class="yes">Included</span><span role="cell">Another plugin, up to $29/month</span></div>
+      <div class="row" role="row"><span role="cell">Figma → Google Slides</span><span role="cell" class="yes">Included</span><span role="cell">Another plugin</span></div>
       <div class="row" role="row"><span role="cell">Multi-page vector PDF</span><span role="cell" class="yes">Included</span><span role="cell">Another plugin</span></div>
-      <div class="row" role="row"><span role="cell">Website, HTML + CSS, Tailwind, React</span><span role="cell" class="yes">Included</span><span role="cell">Another plugin</span></div>
       <div class="row total" role="row"><span role="cell">Price</span><span role="cell" class="yes">From $2.42/month</span><span role="cell">Several subscriptions</span></div>
     </div>
     <div class="center-cta"><a class="btn lime" href="#pricing">See plans — from $2.42 a month</a></div>
@@ -195,8 +195,8 @@
     <ul class="details">
       <li><b>Pick fonts before import</b>See every font in the file and choose a replacement — yours or one everyone has.</li>
       <li><b>Swap a font after import</b>One font for another across the selection, weights kept.</li>
-      <li><b>Readable layer names</b>"Card · 4 363 new clients", "Button · Get Pro" — not div div div.</li>
-      <li><b>Batch import</b>Drop ten files or paste ten links; recent links re-import in one click.</li>
+      <li><b>Notes as stickies</b>Speaker notes and comments land next to their slide.</li>
+      <li><b>Batch import</b>Drop ten files at once — each becomes its own row of frames.</li>
       <li><b>Update in place</b>Re-import a changed file over the old frames, positions kept.</li>
       <li><b>Slide order by drag</b>Reorder thumbnails before export; name files with {name} · {date}.</li>
       <li><b>A conversion report</b>What stayed editable, what became a picture, which fonts are needed.</li>
@@ -220,9 +220,9 @@
         <div class="sub">Forever. No account, no card.</div>
         <ul>
           <li>15 imports a month</li>
-          <li>3 exports a month: PowerPoint, PDF or HTML</li>
+          <li>3 exports a month: PowerPoint or PDF</li>
           <li>Every format, every setting</li>
-          <li>Copying code is always free</li>
+          <li>Google Slides export included</li>
         </ul>
         <div class="cta"><a class="btn outline" href="#top-lead">Get it free</a><p class="plan-note">No account, no card. Upgrade any time.</p></div>
       </div>
@@ -239,8 +239,8 @@
         <ul>
           <li>Unlimited imports and exports</li>
           <li>Design system from any import</li>
-          <li>Batch import, update in place, HTML editor</li>
-          <li>Every export mode: PowerPoint, Google Slides, PDF, code</li>
+          <li>Batch import and update in place</li>
+          <li>Every export mode: PowerPoint, Google Slides, PDF</li>
           <li>Up to 3 Figma accounts</li>
         </ul>
         <div class="cta">
@@ -286,9 +286,9 @@
     </div>
     <div class="faq-list">
       <details><summary>Is it really editable, or a picture in disguise?</summary><p>Really editable. Text is text, shapes are shapes, Auto Layout is Auto Layout. When something can't be rebuilt exactly — a mask, a picture fill, a rare chart type — Slideport keeps it as a picture and tells you in the report.</p></details>
-      <details><summary>Do my files leave my computer?</summary><p>No. Files you drop are converted inside the plugin. Only URL imports go through our proxy, which fetches the page and its images. Full details in the <a href="slideport/privacy/">privacy policy</a>.</p></details>
-      <details><summary>What about fonts?</summary><p>Before import you see every font in the file and can pick a replacement. For PowerPoint, Google Fonts are embedded in the .pptx; for websites, fonts can be packed as files.</p></details>
-      <details><summary>Does it use AI?</summary><p>No. The conversion is deterministic — the same file gives the same result every time. It does import pages that were generated by AI tools.</p></details>
+      <details><summary>Do my files leave my computer?</summary><p>No. PowerPoint, Word and PDF files are converted inside the plugin and never uploaded. Full details in the <a href="slideport/privacy/">privacy policy</a>.</p></details>
+      <details><summary>What about fonts?</summary><p>Before import you see every font in the file and can pick a replacement. On export, Google Fonts are embedded in the .pptx, so text looks the same on any computer.</p></details>
+      <details><summary>Does it use AI?</summary><p>No. The conversion is deterministic — the same file gives the same result every time.</p></details>
       <details><summary>Does it work in Figma Slides and FigJam?</summary><p>Yes. In Figma Slides every imported page becomes a slide; slides export in presentation order.</p></details>
       <details><summary>How do I cancel?</summary><p>Any time, in your lava.top account. If Pro isn't for you within 14 days, write to us for a refund.</p></details>
     </div>
@@ -299,8 +299,8 @@
   <div class="wrap">
     <div class="finale-card">
       <img class="finale-icon" src="assets/icon-128.png" alt="" width="88" height="88">
-      <h2>Everything into Figma.<br><em>Everything back out.</em></h2>
-      <p class="finale-sub">One plugin for websites, PowerPoint, Word and PDF — both ways. Start free, with 7 days of Pro on us.</p>
+      <h2>Your decks in Figma.<br><em>And back out.</em></h2>
+      <p class="finale-sub">One plugin for PowerPoint, Word and PDF — both ways. Start free, with 7 days of Pro on us.</p>
       <div class="finale-form">
         <form class="lead-form dark" data-lead-form="final" novalidate><input type="email" autocomplete="email" placeholder="Your work email" aria-label="Email"><button class="btn lime" type="submit">Get it free</button></form>
         <p class="lead-msg" data-lead-msg>Install link the day Slideport goes live. No spam.</p>
@@ -327,7 +327,7 @@
     <div class="f-grid">
       <div class="f-brand">
         <a class="brand" href="./"><img src="assets/icon-128.png" alt="">Primavera Studio</a>
-        <p>A small independent studio making tools for designers who move work between the browser, Office files and Figma. Slideport is the first one.</p>
+        <p>A small independent studio making tools for designers who move work between Office files and Figma. Slideport is the first one.</p>
         <a class="f-report" data-issues href="#">Import went wrong? <b>Tell us →</b></a>
       </div>
       <div>

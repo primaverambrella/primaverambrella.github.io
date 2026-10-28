@@ -32,8 +32,8 @@
 <header class="doc-hero">
   <div class="wrap">
     <h1>Slideport privacy policy</h1>
-    <p>Short version: your designs and files stay with you. The plugin sends a page address only when you import by URL, and anonymous usage events you can turn off.</p>
-    <p class="updated">Last updated: October 27, 2026</p>
+    <p>Short version: your designs and files stay with you. The plugin sends only licence checks and anonymous usage events you can turn off.</p>
+    <p class="updated">Last updated: October 29, 2026</p>
   </div>
 </header>
 
@@ -48,21 +48,11 @@
       <h2>What stays on your computer</h2>
       <ul>
         <li>Your Figma document. The plugin reads selected frames only to build an export file, and that file is created on your computer. Nothing from your Figma file is uploaded to us or anyone else.</li>
-        <li>Files you drop into the plugin: HTML, ZIP, MHTML, EML, PowerPoint and PDF. They are parsed inside the plugin window and never uploaded.</li>
-        <li>Your settings: language, defaults, font substitutions, proxy address. They are stored in Figma's plugin storage on your device.</li>
+        <li>Files you drop into the plugin: PowerPoint, Word and PDF. They are parsed inside the plugin window and never uploaded.</li>
+        <li>Your settings: language, defaults, font substitutions. They are stored in Figma's plugin storage on your device.</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Importing by URL</h2>
-      <p>When you paste a web address and click <b>Load</b>, the address is sent to the Slideport proxy, a small service on Cloudflare Workers. The proxy downloads that public page, its images, fonts and stylesheets, and passes them back to the plugin. Sites built with JavaScript frameworks are opened in a headless browser on Cloudflare first.</p>
-      <ul>
-        <li>The proxy does not store the pages it fetches and keeps no logs of addresses in its own code. Responses may stay in Cloudflare's cache for up to 5 minutes.</li>
-        <li>Cloudflare, as the hosting provider, processes requests under its own <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">privacy policy</a>.</li>
-        <li>You can set your own proxy in Settings → Proxy for URLs; then requests never reach ours.</li>
-        <li>If you don't import by URL, the proxy is never contacted.</li>
-      </ul>
-    </section>
 
     <section>
       <h2>Anonymous usage statistics</h2>
@@ -92,10 +82,6 @@
       <p>If you leave your email in a form on this website, we store it on the Slideport server with the date and which form you used. We use it only to tell you when Slideport is available and about major updates, and never share or sell it. To be removed, write to us and we delete it.</p>
     </section>
 
-    <section>
-      <h2>Slideport for Chrome</h2>
-      <p>The Chrome extension runs only on the tab where you click it. It copies that page (or the block you pick) into an HTML file — page structure, styles, field values except passwords, and images from the same site — and puts it on your clipboard or in your Downloads folder. It does not collect, store or send any data to us or anyone else, and it does not run in the background.</p>
-    </section>
 
     <section>
       <h2>Free plan and trial</h2>
