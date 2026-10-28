@@ -228,10 +228,21 @@
       <p class="eyebrow">Inside Figma</p>
       <h2>One window. Two tabs.</h2>
     </div>
-    <div class="gallery">
-      <figure><img src="assets/screenshot-1-import.jpg" alt="Slideport import tab in Figma" loading="lazy" width="1600" height="960"><figcaption>Drop a file or paste a link</figcaption></figure>
-      <figure><img src="assets/screenshot-2-website.jpg" alt="A website imported into Figma as layers" loading="lazy" width="1600" height="960"><figcaption>A website as layers with Auto Layout</figcaption></figure>
-      <figure><img src="assets/screenshot-3-powerpoint.jpg" alt="Figma frames exported to PowerPoint" loading="lazy" width="1600" height="960"><figcaption>Frames to an editable .pptx</figcaption></figure>
+    <div class="carousel" data-carousel>
+      <div class="car-tabs" role="tablist" aria-label="Screenshots">
+        <button type="button" role="tab" aria-selected="true"><span>01</span>Drop a file or paste a link<i></i></button>
+        <button type="button" role="tab" aria-selected="false"><span>02</span>A website as layers with Auto Layout<i></i></button>
+        <button type="button" role="tab" aria-selected="false"><span>03</span>Frames to an editable .pptx<i></i></button>
+      </div>
+      <div class="car-view">
+        <div class="car-track" tabindex="0" aria-label="Screenshots, swipe or use arrow keys">
+          <figure><img src="assets/screenshot-1-import.jpg" alt="Slideport import tab in Figma" width="1600" height="960"></figure>
+          <figure><img src="assets/screenshot-2-website.jpg" alt="A website imported into Figma as layers" loading="lazy" width="1600" height="960"></figure>
+          <figure><img src="assets/screenshot-3-powerpoint.jpg" alt="Figma frames exported to PowerPoint" loading="lazy" width="1600" height="960"></figure>
+        </div>
+        <button type="button" class="car-arrow prev" aria-label="Previous">‹</button>
+        <button type="button" class="car-arrow next" aria-label="Next">›</button>
+      </div>
     </div>
   </div>
 </section>

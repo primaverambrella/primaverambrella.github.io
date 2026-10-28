@@ -100,12 +100,34 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .card p { color: var(--ink-2); margin: 8px 0 0; font-size: 15px; }
 .f-doc { background: #2B579A; } .f-web { background: #0D99FF; } .f-html { background: #E44D26; } .f-ppt { background: #C43E1C; } .f-pdf { background: #D9261C; } .f-fig { background: #0B1220; }
 
-/* gallery */
-.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.gallery figure { margin: 0; }
-.gallery img { border-radius: 16px; border: 1px solid var(--line); }
-.gallery figcaption { font-size: 14px; color: var(--ink-2); margin-top: 10px; }
-@media (max-width: 900px) { .gallery { grid-template-columns: 1fr; } }
+/* screenshot carousel: tabs on top, one big slide, swipe on phones */
+.carousel { max-width: 1080px; margin: 0 auto; }
+.car-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+.car-tabs button { position: relative; overflow: hidden; display: flex; gap: 10px; align-items: baseline; text-align: left; padding: 14px 16px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; font: 600 15px/1.35 var(--body); color: var(--ink-2); cursor: pointer; transition: border-color .2s, color .2s; }
+.car-tabs button span { font: 700 12px var(--head); color: var(--ink-3); letter-spacing: .04em; }
+.car-tabs button:hover { border-color: var(--blue); }
+.car-tabs button[aria-selected="true"] { border-color: var(--blue); color: var(--ink); }
+.car-tabs button[aria-selected="true"] span { color: var(--blue); }
+.car-tabs button i { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--blue); }
+.car-tabs button[aria-selected="true"] i { width: 100%; }
+.carousel.playing .car-tabs button[aria-selected="true"] i { animation: car-progress var(--car-ms, 5000ms) linear forwards; }
+@keyframes car-progress { from { width: 0; } to { width: 100%; } }
+.car-view { position: relative; }
+.car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 20px; outline-offset: 4px; }
+.car-track::-webkit-scrollbar { display: none; }
+.car-track figure { flex: 0 0 100%; margin: 0; scroll-snap-align: start; }
+.car-track img { width: 100%; border-radius: 20px; }
+.car-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: var(--ink); font: 400 28px/1 var(--body); cursor: pointer; box-shadow: 0 8px 24px -6px rgba(11,18,32,.35); display: grid; place-items: center; padding-bottom: 3px; }
+.car-arrow.prev { left: -22px; } .car-arrow.next { right: -22px; }
+.car-arrow:hover { background: #fff; color: var(--blue); }
+@media (max-width: 1140px) { .car-arrow.prev { left: 10px; } .car-arrow.next { right: 10px; } }
+@media (max-width: 760px) {
+  .car-tabs { display: flex; overflow-x: auto; scrollbar-width: none; margin: 0 -16px 14px; padding: 0 16px; }
+  .car-tabs::-webkit-scrollbar { display: none; }
+  .car-tabs button { flex: 0 0 auto; font-size: 14px; padding: 10px 14px 12px; }
+  .car-arrow { display: none; }
+  .car-track, .car-track img { border-radius: 14px; }
+}
 
 /* pricing */
 .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 880px; }

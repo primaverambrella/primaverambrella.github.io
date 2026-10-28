@@ -195,3 +195,43 @@ document.querySelectorAll('[data-buy-card]').forEach((card) => {
   const timer = setInterval(tick, 1000);
   tick();
 })();
+
+// Screenshot carousel: tabs, arrows, swipe; plays by itself until the visitor touches it.
+document.querySelectorAll('[data-carousel]').forEach((car) => {
+  const track = car.querySelector('.car-track'), tabs = [...car.querySelectorAll('.car-tabs button')];
+  const n = track.children.length, MS = 5000;
+  let cur = 0, timer = null;
+  const go = (i, smooth = true) => { cur = (i + n) % n; track.scrollTo({ left: cur * track.clientWidth, behavior: smooth ? 'smooth' : 'auto' }); mark(); };
+  const mark = () => tabs.forEach((t, k) => {
+    t.setAttribute('aria-selected', String(k === cur));
+    if (k !== cur) return;
+    const i = t.querySelector('i'); i.style.animation = 'none'; void i.offsetWidth; i.style.animation = '';
+    // On phones the tabs are a scrolling strip: bring the active one into view without moving the page.
+    const strip = t.parentElement;
+    if (strip.scrollWidth > strip.clientWidth) strip.scrollTo({ left: t.offsetLeft - 16, behavior: 'smooth' });
+  });
+  const stop = () => { clearInterval(timer); timer = null; car.classList.remove('playing'); };
+  const play = () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    car.style.setProperty('--car-ms', MS + 'ms'); car.classList.add('playing');
+    timer = setInterval(() => go(cur + 1), MS);
+  };
+  tabs.forEach((t, k) => t.addEventListener('click', () => { stop(); go(k); }));
+  car.querySelector('.prev').addEventListener('click', () => { stop(); go(cur - 1); });
+  car.querySelector('.next').addEventListener('click', () => { stop(); go(cur + 1); });
+  track.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); stop(); go(cur + (e.key === 'ArrowRight' ? 1 : -1)); } });
+  track.addEventListener('pointerdown', stop);
+  track.addEventListener('touchstart', stop, { passive: true });
+  let raf = 0;
+  track.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i !== cur && Math.abs(track.scrollLeft - i * track.clientWidth) < 4) { cur = i; mark(); }
+    });
+  });
+  addEventListener('resize', () => go(cur, false));
+  // Start playing only when the carousel is on screen.
+  new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && !timer && !car.dataset.touched) play(); else if (!e.isIntersecting) stop(); }), { threshold: .5 }).observe(car);
+  [car.querySelector('.car-tabs'), car.querySelector('.car-view')].forEach((el) => el.addEventListener('pointerdown', () => { car.dataset.touched = '1'; }));
+});
