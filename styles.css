@@ -281,7 +281,7 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .plans3 .plan .btn.outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.35); }
 .plans3 .plan .btn.outline:hover { border-color: #fff; }
 .plans3 .plan .btn.white { background: #fff; color: var(--ink); }
-.plans3 .plan.featured { background: linear-gradient(180deg, rgba(185,245,67,.12), rgba(255,255,255,.05) 40%); border: 2px solid var(--lime); box-shadow: 0 30px 80px -20px rgba(185,245,67,.35); transform: translateY(-10px); }
+.plans3 .plan.featured { background: linear-gradient(180deg, rgba(185,245,67,.12), rgba(255,255,255,.05) 40%); border: 2px solid var(--lime); box-shadow: 0 30px 80px -20px rgba(185,245,67,.35); }
 .plans3 .badge { position: absolute; top: -13px; left: 28px; padding: 5px 12px; border-radius: 999px; font: 700 12px/1 var(--body); letter-spacing: .04em; text-transform: uppercase; background: var(--lime); color: var(--ink); }
 .plans3 .badge.alt { background: #fff; }
 .plans3 .toggle { display: inline-flex; gap: 4px; padding: 4px; margin-top: 16px; border-radius: 999px; background: rgba(255,255,255,.1); align-self: flex-start; }
@@ -291,7 +291,8 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .plans3 .toggle button[aria-pressed="false"] .save { color: var(--lime); }
 .plans3 .input.email { width: 100%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); color: #fff; }
 .plans3 .input.email::placeholder { color: rgba(255,255,255,.5); }
-.plans3 .plan-note { font-size: 12.5px; color: rgba(255,255,255,.55); margin: 0; }
+.plans3 .plan-note { font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.55); margin: 0; min-height: 3.2em; }
+/* Notes take two lines in every card, so the buttons sit on one line across all three plans. */
 .plan-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin: 40px auto 0; padding: 0; list-style: none; color: rgba(255,255,255,.75); font-size: 14px; }
 .plan-trust li::before { content: "✓"; color: var(--lime); font-weight: 800; margin-right: 8px; }
 .pricing-band .compare-line { text-align: center; color: rgba(255,255,255,.6); font-size: 14px; margin-top: 14px; }
