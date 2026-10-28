@@ -6,10 +6,10 @@ if (window.top !== window.self) {
 
 // Links that change after launch live here, in one place.
 // community: Figma Community page of Slideport (after the plugin is approved).
-// email: support address; leave empty to hide it.
+// email: support address (Gmail «Slideport Support», auto-reply on); leave empty to hide it.
 const SITE = {
   community: '',
-  email: 'marinekollins@gmail.com',
+  email: 'marinecalls@gmail.com',
   issues: 'https://github.com/primaverambrella/primaverambrella.github.io/issues/new',
   // legalName: seller's legal name for Terms, if a payment provider asks for it; empty shows "Primavera Studio".
   legalName: '',
@@ -34,7 +34,7 @@ document.querySelectorAll('[data-community]').forEach((el) => {
   }
 });
 document.querySelectorAll('[data-email]').forEach((el) => {
-  if (SITE.email) { el.href = 'mailto:' + SITE.email; if (!el.dataset.keep) el.textContent = SITE.email; }
+  if (SITE.email) { el.href = 'mailto:' + SITE.email + '?subject=' + encodeURIComponent('Slideport support'); if (!el.dataset.keep) el.textContent = SITE.email; }
   else el.closest('[data-email-wrap]')?.remove();
 });
 document.querySelectorAll('[data-legal-name]').forEach((el) => { if (SITE.legalName) el.textContent = SITE.legalName; });
