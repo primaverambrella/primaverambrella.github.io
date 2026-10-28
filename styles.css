@@ -609,3 +609,7 @@ body:not(.landing) .footer { margin-top: 56px; }
 .prose-dark section { padding: 28px 32px; margin-bottom: 18px; border-radius: 22px; border: 1px solid var(--glass-line); background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); }
 @media (max-width: 640px) { .prose-dark section { padding: 22px 18px; } }
 @media (max-width: 640px) { .landing .hero { padding: 48px 0 24px; } .landing .section { padding: 64px 0; } .landing .section-head { margin-bottom: 32px; } .hero-shot { margin-top: 40px; } .landing .pill { font-size: 12px; } }
+/* while a screenshot loads, its slot already has the right shape and the blue of the picture, not a black hole */
+.car-track figure { aspect-ratio: 5 / 3; background: linear-gradient(180deg, #1f4ff0, #0f2fb8); border-radius: 20px; }
+.car-track img { height: 100%; object-fit: cover; }
+@media (max-width: 760px) { .car-track figure { border-radius: 14px; } }
