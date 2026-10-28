@@ -290,7 +290,7 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   });
 })();
 
-// ---------- cursor: soft lime light, a soft ripple on click ----------
+// ---------- cursor: soft lime light; a click sends a soft ripple and a quake through the page ----------
 // Only on dark pages with a real mouse; the system cursor stays as it is.
 (() => {
   if (!document.body.classList.contains('landing')) return;
@@ -313,7 +313,37 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
     burst.innerHTML = '<i></i><b></b><b></b>';
     document.body.appendChild(burst);
     setTimeout(() => burst.remove(), 1200);
+    quake(e.clientX, e.clientY);
   });
+
+  // Quake: the click sends a wave through the page. Things nearby get pushed away from the
+  // point and spring back with a little wobble; the farther away, the later and the weaker.
+  const SHAKE = 'h1, h2, .pill, .hero-sub, .section-head p, .eyebrow, .trust li, .lead-form, .btn, .chip, .flow-hub, .car-tabs button, .job, .details li, .compare .row, .split-card, .cta-card, .plans3 .plan, .faq-list details, .finale-icon, .finale-deal, .plan-trust li, .f-grid > div';
+  const RADIUS = 520, SPEED = 1.6; // px of reach, px per ms of the wave
+  let quaking = false;
+  const quake = (cx, cy) => {
+    if (quaking) return; quaking = true; setTimeout(() => { quaking = false; }, 250);
+    document.querySelectorAll(SHAKE).forEach((el) => {
+      if (el.closest('.nav, .launch-bar, .consent')) return;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -50 || r.top > innerHeight + 50) return;
+      const ex = Math.max(r.left, Math.min(cx, r.right)), ey = Math.max(r.top, Math.min(cy, r.bottom));
+      const d = Math.hypot(ex - cx, ey - cy);
+      if (d > RADIUS) return;
+      const k = 1 - d / RADIUS, f = k * k;
+      const mx = r.left + r.width / 2 - cx, my = r.top + r.height / 2 - cy, m = Math.hypot(mx, my) || 1;
+      const amp = 14 * f, dx = (mx / m) * amp, dy = (my / m) * amp;
+      const rot = (r.width < 300 ? 3 : 1) * f * (mx > 0 ? 1 : -1);
+      el.animate([
+        { transform: 'translate(0, 0) rotate(0deg)' },
+        { transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)`, offset: .18 },
+        { transform: `translate(${-dx * .45}px, ${-dy * .45}px) rotate(${-rot * .5}deg)`, offset: .42 },
+        { transform: `translate(${dx * .2}px, ${dy * .2}px) rotate(${rot * .2}deg)`, offset: .66 },
+        { transform: `translate(${-dx * .06}px, ${-dy * .06}px)`, offset: .84 },
+        { transform: 'translate(0, 0) rotate(0deg)' },
+      ], { duration: 650 + 250 * f, delay: d / SPEED, easing: 'cubic-bezier(.2,.6,.3,1)', composite: 'add' });
+    });
+  };
 
   // The light lags behind like a heavy lamp.
   const loop = () => {
