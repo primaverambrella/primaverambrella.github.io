@@ -311,3 +311,47 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   };
   requestAnimationFrame(loop);
 })();
+
+// ---------- motion on the dark pages: card spotlight, reveal on scroll, hero shot that straightens ----------
+(() => {
+  if (!document.body.classList.contains('landing')) return;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Cards light up from the inside where the mouse is.
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.job, .details li, .plans3 .plan, .split-card, .cta-card, .faq-list details').forEach((card) => {
+      card.classList.add('spot');
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+    });
+  }
+  if (still) return;
+
+  // Blocks rise in as they reach the screen; cards in a row follow one another.
+  const items = document.querySelectorAll('.section-head, .job, .details li, .split-card, .cta-card, .compare, .plans3 .plan, .faq-list details, .finale-card, .flow-row');
+  items.forEach((el) => {
+    el.classList.add('reveal');
+    const sibs = [...el.parentElement.children].filter((c) => c.classList.contains('reveal'));
+    el.style.setProperty('--d', Math.min(sibs.indexOf(el), 6) * 70 + 'ms');
+  });
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  items.forEach((el) => io.observe(el));
+
+  // The product shot starts tilted back and lies flat as you scroll to it.
+  const shot = document.querySelector('.hero-shot .car-view');
+  if (shot) {
+    let raf = 0;
+    const tilt = () => {
+      raf = 0;
+      const r = shot.getBoundingClientRect();
+      const t = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .9)));
+      shot.style.transform = `perspective(1400px) rotateX(${(1 - t) * 18}deg) scale(${.94 + t * .06})`;
+    };
+    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tilt); }, { passive: true });
+    addEventListener('resize', tilt);
+    tilt();
+  }
+})();

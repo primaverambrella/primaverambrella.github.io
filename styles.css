@@ -622,3 +622,20 @@ body:not(.landing) .footer { margin-top: 56px; }
 /* keep content above the light */
 .landing .nav, .landing .launch-bar, .landing header, .landing section, .landing footer { position: relative; z-index: 1; }
 .landing .nav { z-index: 10; position: sticky; }
+
+/* card spotlight: a lime glow inside the card and on its edge, where the mouse is */
+.spot { position: relative; isolation: isolate; }
+.spot::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s; z-index: -1;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(185,245,67,.10), transparent 60%); }
+.spot::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(185,245,67,.85), rgba(126,224,255,.35) 40%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.spot:hover::before, .spot:hover::after { opacity: 1; }
+
+/* reveal on scroll */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.7,.2,1) var(--d, 0ms), transform .7s cubic-bezier(.2,.7,.2,1) var(--d, 0ms); }
+.reveal.in { opacity: 1; transform: none; }
+.landing .job.reveal.in:hover { transform: translateY(-4px); transition-delay: 0ms; }
+
+/* hero shot tilt */
+.hero-shot .car-view { transform-origin: 50% 0; will-change: transform; transition: transform .1s linear; }
