@@ -290,47 +290,35 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   });
 })();
 
-// ---------- cursor: soft lime light, a small dot, a burst on click ----------
+// ---------- cursor: soft lime light, a soft ripple on click ----------
 // Only on dark pages with a real mouse; the system cursor stays as it is.
 (() => {
   if (!document.body.classList.contains('landing')) return;
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const glow = document.createElement('div'); glow.className = 'cursor-glow';
-  const dot = document.createElement('div'); dot.className = 'cursor-dot';
-  document.body.append(glow, dot);
-  let x = innerWidth / 2, y = innerHeight / 2, gx = x, gy = y, dx = x, dy = y, shown = false;
+  document.body.append(glow);
+  let x = innerWidth / 2, y = innerHeight / 2, gx = x, gy = y, shown = false;
   addEventListener('pointermove', (e) => {
     x = e.clientX; y = e.clientY;
-    if (!shown) { shown = true; gx = dx = x; gy = dy = y; document.body.classList.add('has-cursor'); }
-    dot.classList.toggle('hot', !!(e.target.closest && e.target.closest('a, button, summary, [role="tab"], input')));
+    if (!shown) { shown = true; gx = x; gy = y; document.body.classList.add('has-cursor'); }
   }, { passive: true });
   document.addEventListener('pointerleave', () => { shown = false; document.body.classList.remove('has-cursor'); });
 
-  // Click: a lime ripple and a few sparks fly out from the point.
+  // Click: a soft glow and two faint rings spread from the point, like a drop on water.
   addEventListener('pointerdown', (e) => {
     if (e.button !== 0) return;
     const burst = document.createElement('div');
     burst.className = 'click-burst';
     burst.style.left = e.clientX + 'px'; burst.style.top = e.clientY + 'px';
-    for (let i = 0; i < 8; i++) {
-      const s = document.createElement('i');
-      const a = (i / 8) * Math.PI * 2 + Math.random() * .4, d = 26 + Math.random() * 18;
-      s.style.setProperty('--tx', Math.cos(a) * d + 'px'); s.style.setProperty('--ty', Math.sin(a) * d + 'px');
-      if (i % 2) s.className = 'sky';
-      burst.appendChild(s);
-    }
+    burst.innerHTML = '<i></i><b></b><b></b>';
     document.body.appendChild(burst);
-    dot.classList.add('down');
-    setTimeout(() => burst.remove(), 700);
+    setTimeout(() => burst.remove(), 1200);
   });
-  addEventListener('pointerup', () => dot.classList.remove('down'));
 
-  // The dot sits right on the pointer; the light lags behind like a heavy lamp.
+  // The light lags behind like a heavy lamp.
   const loop = () => {
     gx += (x - gx) * .08; gy += (y - gy) * .08;
-    dx += (x - dx) * .45; dy += (y - dy) * .45;
     glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
-    dot.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);
