@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev https://*.clarity.ms; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Slideport pricing</title>
 <meta name="description" content="Slideport is free for 15 imports and 3 exports a month. Pro removes the limits: $5 a month, $29 a year or $79 once.">
 <meta property="og:title" content="Slideport pricing">
@@ -15,42 +15,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles.css">
 </head>
-<body>
+<body class="landing">
 
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="../../"><img src="../../assets/icon-128.png" alt="">Primavera Studio</a>
+    <a class="brand" href="../../"><img src="../../assets/icon-128.png" alt="">Slideport <small>by Primavera Studio</small></a>
     <button class="menu-btn" aria-expanded="false" aria-label="Menu">Menu</button>
     <ul>
-      <li><a href="../../#slideport">Slideport</a></li>
-      <li><a href="../">Docs</a></li>
-      <li><a href="./" aria-current="page">Pricing</a></li>
-      <li><a href="../privacy/">Privacy</a></li>
-      <li><a href="../#support">Support</a></li>
+      <li><a href="../../#jobs">What it does</a></li>
+      <li><a href="../../#compare">Why Slideport</a></li>
+      <li><a href="../../slideport/pricing/" aria-current="page">Pricing</a></li>
+      <li><a href="../../slideport/">Docs</a></li>
+      <li><a href="../../#faq">FAQ</a></li>
     </ul>
+    <a class="btn lime nav-cta" href="../../slideport/pricing/">Get Pro</a>
   </div>
 </nav>
 
-<header class="doc-hero">
+<section class="section pricing-band">
   <div class="wrap">
-    <div class="name"><img src="../../assets/icon-128.png" alt=""><h1>Slideport pricing</h1></div>
-    <p>Every install starts with 7 days of Pro, no card needed. After that, Free covers occasional use and Pro removes the monthly limits. Every format and every setting is in both plans.</p>
-  </div>
-</header>
-
-<div class="wrap" style="padding:40px 24px 24px">
   <div class="checkout-done callout-box" data-checkout-done hidden>
     <b>Thank you! Pro is yours.</b> In Slideport open <b>Settings → Slideport Pro</b> and enter your email and this license key:
     <div class="license-row"><code data-license>…</code><button type="button" class="btn ghost" data-copy>Copy</button></div>
     <span data-license-email></span> Save the key: it's also how you turn on Pro on another computer. Lost it? <span data-email-wrap>Write to <a data-email href="#"></a>.</span>
   </div>
 
-</div>
-<section class="section pricing-band" style="padding-top:56px">
-  <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Plans</p>
-      <h2>Start free. Go Pro when it pays off.</h2>
+      <h2>Start free.<br><em>Go Pro when it pays off.</em></h2>
       <p>Every install starts with 7 days of Pro — no card, no account. Every format and every setting is in every plan.</p>
     </div>
     <div class="plans3">
@@ -117,7 +109,7 @@
   </div>
 </section>
 <div class="wrap">
-  <main class="prose" style="margin-top:48px">
+  <main class="prose prose-dark">
     <section>
       <h2>How buying works</h2>
       <ol>
@@ -146,11 +138,42 @@
   </main>
 </div>
 
-<footer class="footer">
+<footer class="footer rich" id="contact">
   <div class="wrap">
-    <div class="bottom" style="margin-top:0;border-top:0;padding-top:0">
-      <span>© <span data-year>2026</span> Primavera Studio · <a href="../terms/">Terms</a> · <a href="../refunds/">Refunds</a> · <a href="../privacy/">Privacy</a></span>
-      <span>Figma is a trademark of Figma, Inc. Slideport is not affiliated with Figma.</span>
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="brand" href="../../"><img src="../../assets/icon-128.png" alt="">Primavera Studio</a>
+        <p>A small independent studio making tools for designers who move work between the browser, Office files and Figma. Slideport is the first one.</p>
+        <a class="f-report" data-issues href="#">Import went wrong? <b>Tell us →</b></a>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a data-community href="#"><span data-label>Figma Community</span></a></li>
+          <li><a href="../../slideport/pricing/">Pricing</a></li>
+          <li><a href="../../slideport/">Documentation</a></li>
+          <li><a href="../../#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a data-issues href="#">Report a problem</a></li>
+          <li data-email-wrap><a data-email href="#"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="../../slideport/terms/">Terms</a></li>
+          <li><a href="../../slideport/refunds/">Refunds</a></li>
+          <li><a href="../../slideport/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© <span data-year>2026</span> Primavera Studio</span>
+      <span>Figma is a trademark of Figma, Inc. PowerPoint and Word are trademarks of Microsoft. Slideport is not affiliated with either.</span>
     </div>
   </div>
 </footer>
