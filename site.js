@@ -61,8 +61,8 @@ if (toc.length && 'IntersectionObserver' in window) {
 
 // Pricing on the landing: Pro yearly / monthly switch.
 const PRO_PERIODS = {
-  yearly: { price: '$29 <small>/ year</small>', sub: 'Just <b>$2.42 a month</b> — 52% less than monthly' },
-  monthly: { price: '$5 <small>/ month</small>', sub: 'Billed monthly. <b>Cancel any time.</b>' },
+  yearly: { price: '$29 <s class="was">$60</s> <small>/ year</small>', sub: 'Just <b>$2.42 a month</b> — you save $31 a year' },
+  monthly: { price: '$5 <small>/ month</small>', sub: 'Billed monthly. <b>Cancel any time.</b> Yearly saves $31.' },
 };
 document.querySelectorAll('[data-pro-card]').forEach((card) => {
   const set = (p) => {
@@ -149,22 +149,49 @@ document.querySelectorAll('[data-buy-card]').forEach((card) => {
   });
 });
 
-// Lifetime launch price: the server says whether it is still on and how many places are left.
+// Lifetime launch price: one real deadline for everyone (LAUNCH_END on the server) and the places left.
+// When either runs out the server itself switches checkout to the regular price, so the timer never lies.
 (async () => {
-  const cards = document.querySelectorAll('[data-life-price]');
-  if (!cards.length) return;
   let st = null;
   try { st = await (await fetch(SLIDEPORT_API.base + '/launch?key=' + encodeURIComponent(SLIDEPORT_API.key))).json(); } catch (e) { return; }
-  document.querySelectorAll('[data-buy-card="lifetime"]').forEach((card) => {
-    const price = card.querySelector('[data-life-price]'), sub = card.querySelector('[data-life-sub]');
-    const badge = card.querySelector('[data-life-badge]'), btn = card.querySelector('[data-life-btn]');
-    if (st && st.active) {
-      if (sub) sub.innerHTML = '<b>' + st.left + ' of ' + st.limit + ' left</b> at the launch price — then $' + st.regular;
-    } else if (st) {
+  if (!st) return;
+  const active = () => st.active && (!st.endsAt || Date.now() < st.endsAt);
+  const regular = () => {
+    document.querySelectorAll('[data-buy-card="lifetime"]').forEach((card) => {
+      const price = card.querySelector('[data-life-price]'), sub = card.querySelector('[data-life-sub]');
+      const badge = card.querySelector('[data-life-badge]'), btn = card.querySelector('[data-life-btn]');
       if (price) price.innerHTML = '$' + st.regular + ' <small>once</small>';
       if (sub) sub.innerHTML = 'Everything in Pro, <b>forever</b>';
       if (badge) badge.textContent = 'Best value';
       if (btn) btn.textContent = 'Buy once — $' + st.regular;
-    }
+    });
+    document.querySelectorAll('[data-launch-timer], .launch-bar').forEach((el) => { el.hidden = true; });
+  };
+  if (!active()) return regular();
+  document.querySelectorAll('[data-life-sub]').forEach((sub) => {
+    sub.innerHTML = '<b>' + st.left + ' of ' + st.limit + ' left</b> at the launch price — then $' + st.regular;
   });
+  // Bar above the menu on every page.
+  const nav = document.querySelector('.nav');
+  if (nav) {
+    const href = document.getElementById('pricing') ? '#pricing' : '/#pricing';
+    const bar = document.createElement('a');
+    bar.className = 'launch-bar'; bar.href = href;
+    bar.innerHTML = '<span><b>Launch price:</b> Lifetime <b>$' + st.price + '</b> <s>$' + st.regular + '</s></span>'
+      + (st.endsAt ? '<span class="lb-time">ends in <b data-launch-left></b></span>' : '')
+      + '<span class="lb-left">' + st.left + ' of ' + st.limit + ' left</span><span class="lb-go">Get it →</span>';
+    nav.parentNode.insertBefore(bar, nav);
+  }
+  if (!st.endsAt) return;
+  document.querySelectorAll('[data-launch-timer]').forEach((el) => { el.hidden = false; });
+  const pad = (n) => String(n).padStart(2, '0');
+  const tick = () => {
+    const ms = st.endsAt - Date.now();
+    if (ms <= 0) { clearInterval(timer); return regular(); }
+    const s = Math.floor(ms / 1000), d = Math.floor(s / 86400);
+    const text = (d ? d + 'd ' : '') + pad(Math.floor(s / 3600) % 24) + ':' + pad(Math.floor(s / 60) % 60) + ':' + pad(s % 60);
+    document.querySelectorAll('[data-launch-left]').forEach((el) => { el.textContent = text; });
+  };
+  const timer = setInterval(tick, 1000);
+  tick();
 })();

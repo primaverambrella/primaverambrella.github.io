@@ -333,3 +333,17 @@ h1, h2, h3 { font-family: var(--head); letter-spacing: -.03em; margin: 0; }
 .cta-band.final + .footer { margin-top: 0; }
 .plans3 .price s.was { font: 600 24px var(--head); color: rgba(255,255,255,.45); letter-spacing: -.02em; margin-left: 4px; }
 .plans3 .badge.launch-left { background: var(--lime); }
+
+/* launch bar and countdown: one real deadline for everyone, set on the server */
+.launch-bar { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 18px; padding: 9px 16px; background: var(--ink); color: #fff; font-size: 14px; line-height: 1.35; text-decoration: none; text-align: center; }
+.launch-bar[hidden] { display: none; }
+.launch-bar b { color: var(--lime); }
+.launch-bar s { color: rgba(255,255,255,.5); }
+.launch-bar .lb-time b { font-variant-numeric: tabular-nums; }
+.launch-bar .lb-left { color: rgba(255,255,255,.7); }
+.launch-bar .lb-go { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.launch-bar:hover .lb-go { color: var(--lime); }
+@media (max-width: 640px) { .launch-bar { font-size: 13px; gap: 2px 12px; } .launch-bar .lb-left { display: none; } }
+.plans3 .countdown { margin: 10px 0 0; padding: 8px 12px; border-radius: 10px; background: rgba(185,245,67,.12); font-size: 14px; color: rgba(255,255,255,.85); }
+.plans3 .countdown b { color: var(--lime); font-variant-numeric: tabular-nums; }
+.plans3 .countdown[hidden] { display: none; }
