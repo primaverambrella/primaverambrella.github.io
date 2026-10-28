@@ -14,7 +14,7 @@ const SITE = {
   // legalName: seller's legal name for Terms, if a payment provider asks for it; empty shows "Primavera Studio".
   legalName: '',
   // clarity: Microsoft Clarity project ID (clarity.microsoft.com → Settings → Overview). Empty = no analytics, no banner.
-  clarity: '',
+  clarity: 'z4y0ph4ylt',
 };
 
 
