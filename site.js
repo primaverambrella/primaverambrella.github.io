@@ -290,31 +290,22 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   });
 })();
 
-// ---------- cursor: soft lime light that follows the mouse, a ring that hugs buttons ----------
-// Only on dark pages with a real mouse; the system cursor stays, so nothing gets harder to use.
+// ---------- cursor: soft lime light that follows the mouse ----------
+// Only on dark pages with a real mouse; the system cursor stays as it is.
 (() => {
   if (!document.body.classList.contains('landing')) return;
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const glow = document.createElement('div'); glow.className = 'cursor-glow';
-  const ring = document.createElement('div'); ring.className = 'cursor-ring';
-  document.body.append(glow, ring);
-  let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y, gx = x, gy = y, shown = false;
-  const HOT = 'a, button, input, summary, [role="tab"], .job, .plan';
+  document.body.append(glow);
+  let x = innerWidth / 2, y = innerHeight / 2, gx = x, gy = y, shown = false;
   addEventListener('pointermove', (e) => {
     x = e.clientX; y = e.clientY;
-    if (!shown) { shown = true; rx = gx = x; ry = gy = y; document.body.classList.add('has-cursor'); }
-    const hot = e.target.closest && e.target.closest(HOT);
-    ring.classList.toggle('hot', !!hot && !hot.matches('.job, .plan'));
-    ring.classList.toggle('card', !!hot && hot.matches('.job, .plan'));
+    if (!shown) { shown = true; gx = x; gy = y; document.body.classList.add('has-cursor'); }
   }, { passive: true });
   document.addEventListener('pointerleave', () => { shown = false; document.body.classList.remove('has-cursor'); });
-  addEventListener('pointerdown', () => ring.classList.add('down'));
-  addEventListener('pointerup', () => ring.classList.remove('down'));
-  // The ring follows quickly, the light lags behind like a heavy lamp.
+  // The light lags behind like a heavy lamp.
   const loop = () => {
-    rx += (x - rx) * .35; ry += (y - ry) * .35;
     gx += (x - gx) * .08; gy += (y - gy) * .08;
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
     glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
     requestAnimationFrame(loop);
   };
