@@ -649,3 +649,6 @@ body:not(.landing) .footer { margin-top: 56px; }
 .click-burst b + b { border-color: rgba(126,224,255,.35); animation-delay: .12s; opacity: 0; }
 @keyframes burst-glow { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
 @keyframes burst-ring { 0% { transform: scale(.2); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+/* while the page has collapsed, falling blocks are not cut off by their section */
+.collapsed .landing .hero, .collapsed .finale { overflow: visible; }
+.collapsed .landing header, .collapsed .landing section, .collapsed .landing footer, .collapsed .hero > .wrap { z-index: auto; }

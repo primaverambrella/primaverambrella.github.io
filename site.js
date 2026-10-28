@@ -313,12 +313,16 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
     burst.innerHTML = '<i></i><b></b><b></b>';
     document.body.appendChild(burst);
     setTimeout(() => burst.remove(), 1200);
-    quake(e.clientX, e.clientY);
+    // Ten clicks within three seconds bring the whole screen down.
+    clicks = clicks.filter((t) => e.timeStamp - t < 3000); clicks.push(e.timeStamp);
+    if (clicks.length >= 10 && !fallen) { clicks = []; collapse(); return; }
+    if (!fallen) quake(e.clientX, e.clientY);
   });
+  let clicks = [], fallen = false;
 
   // Quake: the click sends a wave through the page. Things nearby get pushed away from the
   // point and spring back with a little wobble; the farther away, the later and the weaker.
-  const SHAKE = 'h1, h2, .pill, .hero-sub, .section-head p, .eyebrow, .trust li, .lead-form, .btn, .chip, .flow-hub, .car-tabs button, .job, .details li, .compare .row, .split-card, .cta-card, .plans3 .plan, .faq-list details, .finale-icon, .finale-deal, .plan-trust li, .f-grid > div';
+  const SHAKE = 'h1, h2, .pill, .hero-sub, .lead-msg, .hero-links, .cta-card p, .section-head p, .eyebrow, .trust li, .lead-form, .btn, .chip, .flow-hub, .car-tabs button, .job, .details li, .compare .row, .split-card, .cta-card, .plans3 .plan, .faq-list details, .finale-icon, .finale-deal, .plan-trust li, .f-grid > div';
   const RADIUS = 520, SPEED = 1.6; // px of reach, px per ms of the wave
   let quaking = false;
   const quake = (cx, cy) => {
@@ -343,6 +347,53 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
         { transform: 'translate(0, 0) rotate(0deg)' },
       ], { duration: 650 + 250 * f, delay: d / SPEED, easing: 'cubic-bezier(.2,.6,.3,1)', composite: 'add' });
     });
+  };
+
+  // Collapse: everything on screen drops to the bottom of the window and lies there in a heap,
+  // the floor shudders on impact, then after three seconds the blocks float back into place.
+  const collapse = () => {
+    fallen = true;
+    const all = [...document.querySelectorAll(SHAKE)].filter((el) => !el.closest('.nav, .launch-bar, .consent'));
+    const tops = all.filter((el) => !all.some((o) => o !== el && o.contains(el)));
+    const root = document.documentElement, prevOverflow = root.style.overflow;
+    const keepY = scrollY;
+    root.style.overflow = 'hidden'; root.classList.add('collapsed');
+    const falls = [];
+    let landAt = 0;
+    tops.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const floor = innerHeight - 6 - Math.random() * Math.min(60, r.height * .3);
+      const dy = Math.max(0, floor - r.bottom), dx = (Math.random() - .5) * 60;
+      const rot = (Math.random() - .5) * (r.width < 300 ? 70 : 16);
+      const delay = Math.random() * 260 + (1 - r.top / innerHeight) * 120;
+      const dur = 520 + Math.sqrt(dy) * 22;
+      landAt = Math.max(landAt, delay + dur);
+      el.style.position = el.style.position || (getComputedStyle(el).position === 'static' ? 'relative' : ''); el.style.zIndex = 50;
+      const end = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+      falls.push({ el, end, a: el.animate([
+        { transform: 'translate(0, 0) rotate(0deg)', easing: 'cubic-bezier(.55,0,1,.45)' },
+        { transform: `translate(${dx}px, ${dy}px) rotate(${rot * .8}deg)`, offset: .78, easing: 'cubic-bezier(0,.55,.45,1)' },
+        { transform: `translate(${dx}px, ${dy - Math.min(28, dy * .08)}px) rotate(${rot * .95}deg)`, offset: .9, easing: 'cubic-bezier(.55,0,1,.45)' },
+        { transform: end },
+      ], { duration: dur, delay, fill: 'forwards', composite: 'add' }) });
+    });
+    // The floor shudders when the heap lands.
+    setTimeout(() => document.body.animate([
+      { transform: 'translateY(0)' }, { transform: 'translateY(6px)' }, { transform: 'translateY(-3px)' }, { transform: 'translateY(1px)' }, { transform: 'translateY(0)' },
+    ], { duration: 380, easing: 'ease-out' }), landAt * .7);
+    // Three seconds on the floor, then everything floats back.
+    setTimeout(() => {
+      let left = falls.length;
+      if (!left) { root.style.overflow = prevOverflow; root.classList.remove('collapsed'); fallen = false; return; }
+      falls.forEach(({ el, end, a }, i) => {
+        const back = el.animate([{ transform: end }, { transform: 'translate(0, 0) rotate(0deg)' }],
+          { duration: 1100, delay: i * 18, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards', composite: 'add' });
+        a.cancel();
+        back.addEventListener('finish', () => { el.style.zIndex = ''; if (el.style.position === 'relative' && !el.dataset.keepPos) el.style.position = ''; });
+        back.onfinish = () => { if (--left === 0) { root.style.overflow = prevOverflow; root.classList.remove('collapsed'); scrollTo(0, keepY); fallen = false; } };
+      });
+    }, landAt + 3000);
   };
 
   // The light lags behind like a heavy lamp.
