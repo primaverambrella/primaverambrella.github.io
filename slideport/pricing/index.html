@@ -62,6 +62,7 @@
       <div class="period" role="group" aria-label="Billing period">
         <button type="button" data-period="yearly" aria-pressed="true">Yearly</button>
         <button type="button" data-period="monthly" aria-pressed="false">Monthly</button>
+        <button type="button" data-period="lifetime" aria-pressed="false">Lifetime</button>
       </div>
       <div class="price" data-price>$29 <small>/ year</small></div>
       <div class="sub" data-price-sub>About $2.40 a month, billed once a year</div>
@@ -69,7 +70,7 @@
         <li>Unlimited imports</li>
         <li>Unlimited exports</li>
         <li>7-day free trial in the plugin, no card</li>
-        <li>14-day money-back guarantee, cancel any time</li>
+        <li data-refund-note>14-day money-back guarantee, cancel any time</li>
       </ul>
       <input class="input email" type="email" autocomplete="email" placeholder="Your email for the receipt and key" data-email-input>
       <button class="btn lime buy" type="button" data-buy>Get Pro</button>
@@ -98,7 +99,9 @@
       <p>Yes, within 14 days of a payment. See the <a href="../refunds/">refund policy</a>.</p>
       <h3>I need an invoice for my company.</h3>
       <p>lava.top emails a receipt for every payment. <span data-email-wrap>For an invoice with your company details write to <a data-email href="#"></a>.</span></p>
-      <h3>Do you have team or lifetime plans?</h3>
+      <h3>Is there a lifetime plan?</h3>
+      <p>Yes: <b>Lifetime</b> is $79 once — Pro forever, with every future update, no subscription to cancel. It works in up to three Figma accounts, like the other plans, and has the same 14-day money-back guarantee.</p>
+      <h3>Do you have team plans?</h3>
       <p>Not yet. <span data-email-wrap>Write to <a data-email href="#"></a> and</span> tell us what you need.</p>
     </section>
   </main>

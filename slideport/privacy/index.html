@@ -87,9 +87,25 @@
     </section>
 
     <section>
+      <h2>Slideport for Chrome</h2>
+      <p>The Chrome extension runs only on the tab where you click it. It copies that page (or the block you pick) into an HTML file — page structure, styles, field values except passwords, and images from the same site — and puts it on your clipboard or in your Downloads folder. It does not collect, store or send any data to us or anyone else, and it does not run in the background.</p>
+    </section>
+
+    <section>
+      <h2>Free plan and trial</h2>
+      <p>The free plan allows a number of imports and exports per month, and the 7-day Pro trial is given once. So that these limits can't be reset by switching computers or clearing plugin data, the plugin sends the Slideport server your Figma user ID, the random installation ID described above and its local counts. The server checks them against its own clock and stores only one-way salted hashes:</p>
+      <ul>
+        <li>of your Figma user ID and installation ID, with the date the plugin was first opened, the trial end date and the number of imports and exports per month;</li>
+        <li>of your network (your IP address without its last part), for 30 days, to limit how many trials one network can start.</li>
+      </ul>
+      <p>It never receives your name, email, files or page addresses. Pro users are not counted. Without a connection the plugin allows a few actions and syncs later; with no connection at all the free plan can't be checked.</p>
+      <p>When you check Pro, the plugin also sends your Figma user ID, so one subscription can be used in up to three Figma accounts within 30 days. The server keeps a salted hash of the purchase email and of each account with the last check date.</p>
+    </section>
+
+    <section>
       <h2>Technical data</h2>
       <ul>
-        <li><b>IP addresses.</b> The Slideport server uses your IP address for a moment to limit the number of requests per minute and stop abuse. It is not stored.</li>
+        <li><b>IP addresses.</b> The Slideport server uses your IP address for a moment to limit the number of requests per minute and stop abuse. The address itself is not stored; only a salted hash of the network part is kept for 30 days, as described above.</li>
         <li><b>This website</b> is hosted on GitHub Pages, which, like any web host, receives your IP address and browser details under <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub's privacy statement</a>. Fonts load from Google Fonts, which receives your IP address under <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>. When you click Get Pro, you go to the lava.top payment page, which may set its own cookies to process payments and prevent fraud. The site itself has no analytics, no ad trackers and no cookies of its own.</li>
       </ul>
     </section>
@@ -98,7 +114,7 @@
       <h2>Where data is processed and for how long</h2>
       <ul>
         <li>Usage events and feedback are stored by PostHog in the United States and kept for up to 12 months.</li>
-        <li>The Slideport server runs on Cloudflare's global network. It stores nothing except the short caches described above.</li>
+        <li>The Slideport server runs on Cloudflare's global network. It stores nothing except the free plan, trial and Pro account hashes and the short caches described above.</li>
         <li>Order records are kept by lava.top for as long as tax and accounting law requires.</li>
       </ul>
       <p>We process this data to provide the plugin and the Pro subscription you asked for, and, for anonymous statistics and security limits, in our legitimate interest in keeping Slideport working; you can switch statistics off at any time.</p>

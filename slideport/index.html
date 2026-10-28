@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Slideport docs</title>
-<meta name="description" content="How to use Slideport: import websites, HTML, PowerPoint and PDF into Figma; export frames to PowerPoint, PDF and HTML.">
+<meta name="description" content="How to use Slideport: import websites, HTML, PowerPoint, Word and PDF into Figma; export frames to PowerPoint, PDF, HTML and code.">
 <meta property="og:title" content="Slideport docs">
-<meta property="og:description" content="Import websites, HTML, PowerPoint and PDF into Figma. Export frames to PowerPoint, PDF and HTML.">
+<meta property="og:description" content="Import websites, HTML, PowerPoint, Word and PDF into Figma. Export frames to PowerPoint, PDF, HTML and code.">
 <meta property="og:image" content="https://primaverambrella.github.io/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -35,7 +35,7 @@
 <header class="doc-hero">
   <div class="wrap">
     <div class="name"><img src="../assets/icon-128.png" alt=""><h1>Slideport docs</h1></div>
-    <p>Import websites, HTML, PowerPoint and PDF into Figma as editable layers. Export Figma frames to PowerPoint, PDF and HTML.</p>
+    <p>Import websites, HTML, PowerPoint, Word and PDF into Figma as editable layers. Export Figma frames to PowerPoint, PDF, HTML and code.</p>
     <div class="actions">
       <a class="btn primary" data-community href="#"><span data-label>Open in Figma Community</span></a>
       <a class="btn ghost" data-issues href="#">Report a problem</a>
@@ -50,11 +50,17 @@
       <li><a href="#start">Getting started</a></li>
       <li><a href="#website">Website by URL</a></li>
       <li><a href="#html">HTML files</a></li>
+      <li><a href="#update">Update in place</a></li>
       <li><a href="#pptx">PowerPoint import</a></li>
+      <li><a href="#docx">Word import</a></li>
       <li><a href="#pdf">PDF import</a></li>
+      <li><a href="#design-system">Design system</a></li>
+      <li><a href="#slides">Figma Slides &amp; FigJam</a></li>
+      <li><a href="#mcp">AI agents (MCP)</a></li>
+      <li><a href="#chrome">Chrome extension</a></li>
       <li><a href="#export-pptx">Export to PowerPoint</a></li>
       <li><a href="#export-pdf">Export to PDF</a></li>
-      <li><a href="#export-html">Export to HTML</a></li>
+      <li><a href="#export-html">Export to HTML &amp; code</a></li>
       <li><a href="#settings">Settings</a></li>
       <li><a href="#limits">Limits</a></li>
       <li><a href="#pricing">Pricing</a></li>
@@ -69,8 +75,8 @@
       <h2>Getting started</h2>
       <ol>
         <li>Open Slideport on Figma Community and click <b>Open in…</b> or <b>Try it out</b>.</li>
-        <li>In any Figma design file run it from <b>Plugins → Slideport</b> (or <kbd>⌘ /</kbd> and type “Slideport”).</li>
-        <li>The window has two tabs: <b>Import</b> and <b>Export</b>. The gear opens Settings, the flag switches between English and Russian.</li>
+        <li>In any Figma Design, Figma Slides or FigJam file run it from <b>Plugins → Slideport</b> (or <kbd>⌘ /</kbd> and type “Slideport”).</li>
+        <li>The window has two tabs: <b>Import</b> and <b>Export</b>. The gear opens Settings, the flag switches the interface language (10 languages).</li>
       </ol>
       <figure><img src="../assets/screenshot-1-import.jpg" alt="Slideport import tab" loading="lazy" width="1600" height="960"></figure>
       <p>After you drop a file, an <b>Import settings</b> sheet appears with options for that file type only. Tick <b>Don't show again</b> to import straight away with your defaults. Bring the sheet back with the <b>Import settings</b> link under the file, or hold <kbd>⌥</kbd> while clicking <b>Import</b>.</p>
@@ -83,8 +89,10 @@
       <ul>
         <li><b>Layout size</b>: the viewport width; the plugin also finds fixed-size slides and banners by itself.</li>
         <li><b>+ tablet 768, + phone 390</b>: import several viewports at once, each as its own frame.</li>
-        <li><b>Auto Layout from flex blocks</b>: flex containers become Auto Layout frames with editable padding and gaps. Grid stays absolute for now.</li>
+        <li><b>Auto Layout from flex and grid</b>: flex containers become Auto Layout frames, CSS grids become Auto Layout grids with the same columns, rows, gaps and spans. Blocks that wrap their content get Hug, so they grow with the text.</li>
         <li><b>High-resolution images</b>: picks the largest <code>srcset</code> variant.</li>
+        <li><b>Readable layer names</b>: layers are named by role and text, like “Button · Get started” or “Card · Pricing”.</li>
+        <li><b>Several pages at once</b>: paste several addresses, one per line; each becomes its own frame. Recent addresses stay on the Import tab for a one-click re-import.</li>
         <li><b>Page theme</b>: light or dark, if the site supports both.</li>
       </ul>
       <h3>What comes across</h3>
@@ -106,23 +114,46 @@
       <p>Pages behind a login can't be fetched by URL. Save them from your browser with <b>File → Save Page As</b> and drop the file instead.</p>
     </section>
 
+    <section id="update">
+      <h2>Update an import in place</h2>
+      <p>Every import remembers where it came from. Select an imported frame (or any layer inside it) and the Import tab shows <b>Update “…” in place</b>:</p>
+      <ul>
+        <li><b>From a link</b>: click <b>Update from the link</b>.</li>
+        <li><b>From a file</b>: drop the new version of the same file. The button turns into <b>Update in place</b>.</li>
+        <li><b>Anything else</b>: tick <b>Replace the selected import with any new file or link</b>.</li>
+      </ul>
+      <p>The new frames take the old ones’ place, layer order and names; speaker-note stickies move with their slides. Press <kbd>⌘Z</kbd> to get the previous version back.</p>
+      <h3>Edit the HTML right in the plugin</h3>
+      <p>For an HTML import, click <b>Edit code</b> — under the file, or in the update panel of an imported frame. Change the code and press <b>Update in Figma</b> (<kbd>⌘</kbd>+<kbd>↵</kbd>): the frame is rebuilt in place. With Pro, <b>Update the frame as you type</b> rebuilds it a second after you stop typing. Each update counts as an import.</p>
+    </section>
+
     <section id="pptx">
       <h2>PowerPoint import</h2>
-      <p>Drop a <code>.pptx</code> or <code>.potx</code>. Every slide becomes a frame and the slides line up in a row. Everything is parsed inside the plugin; the file is not uploaded.</p>
+      <p>Drop a <code>.pptx</code> or <code>.potx</code>. Every slide becomes a frame and the slides line up in a row. Drop several files at once to import them one after another. Everything is parsed inside the plugin; the file is not uploaded.</p>
       <ul>
         <li>Text boxes become text layers with font, size, bold, color, line height, bullets and numbering. Styles are inherited from layouts and masters.</li>
         <li>Shapes become rectangles and ellipses with radius, fill, gradient, stroke and shadow. Arrows, stars and custom outlines become vectors.</li>
         <li>Pictures stay separate layers with cropping: PNG, JPEG, GIF, SVG.</li>
         <li>Groups become frames, tables become a grid of cells with text.</li>
+        <li>Bar, column, line, area, pie and doughnut charts become editable shapes with axes, labels and the series colors.</li>
         <li>Slide backgrounds, master and layout decorations, theme colors and fonts.</li>
         <li>Speaker notes and comments, including threaded replies, become stickies to the right of the slide: yellow for notes, blue for comments.</li>
       </ul>
-      <p>Charts, SmartArt, OLE objects and EMF, WMF or TIFF pictures come in as grey placeholders, and the plugin lists them after import. Flipped shapes come in without the flip.</p>
+      <p>SmartArt, OLE objects, other chart types and EMF, WMF or TIFF pictures come in as grey placeholders, and the plugin lists them after import. Flipped shapes come in without the flip.</p>
+    </section>
+
+    <section id="docx">
+      <h2>Word import</h2>
+      <p>Drop a <code>.docx</code>. Every page becomes a frame with the page size and margins from the file: page breaks start a new frame, and a page with more text grows downwards. The file is parsed inside the plugin and not uploaded.</p>
+      <ul>
+        <li>Headings and paragraphs keep their styles: font, size, weight, color, spacing, alignment.</li>
+        <li>Bulleted and numbered lists, links, pictures and tables come across editable.</li>
+      </ul>
     </section>
 
     <section id="pdf">
       <h2>PDF import</h2>
-      <p>Drop a <code>.pdf</code>. The card shows the page count and size. In the settings sheet you can choose pages, for example <code>1-3, 5</code>, and how vector graphics come in. Every page becomes a frame at 1&nbsp;pt = 1&nbsp;px, so a PDF exported from Figma comes back at its original size. The file is parsed inside the plugin and not uploaded.</p>
+      <p>Drop a <code>.pdf</code>. The card shows the page count and size. In the settings sheet you tick pages on thumbnails (or type <code>1-3, 5</code>), choose a row, column or grid layout, and how vector graphics come in. Every page becomes a frame at 1&nbsp;pt = 1&nbsp;px, so a PDF exported from Figma comes back at its original size. The file is parsed inside the plugin and not uploaded.</p>
       <ul>
         <li>Lines of text are joined into paragraphs, keeping font, weight, italic, size, color and line height for each run. Rotated text stays rotated.</li>
         <li>Pictures are separate layers; rectangular crops are kept.</li>
@@ -130,6 +161,43 @@
         <li>Other vector graphics come in as <b>paths</b>, grouped by area, or as a <b>backdrop</b>: one 2× picture under the text, for maps and charts with thousands of lines.</li>
       </ul>
       <p>Scanned pages come in as pictures. Password-protected PDFs don't open. Because text in a PDF is only lines, columns or table cells set very close together may merge into one layer.</p>
+    </section>
+
+    <section id="design-system">
+      <h2>Import as a design system</h2>
+      <p>Turn on <b>Import as a design system</b> in the import settings. After the import the plugin:</p>
+      <ul>
+        <li>creates color and text styles and variables for colors, spacing and radii found in the source (CSS variables and PowerPoint theme included);</li>
+        <li>links every imported layer to them, so changing one color changes the whole deck or page;</li>
+        <li>adds a style guide frame with swatches and type samples next to the import.</li>
+      </ul>
+      <p>Available in Figma Design files.</p>
+    </section>
+
+    <section id="slides">
+      <h2>Figma Slides and FigJam</h2>
+      <p>Slideport runs in Figma Slides and FigJam too. In Figma Slides every PowerPoint slide or PDF page becomes a slide in the deck, and export follows the slide grid order. In FigJam imports come in as frames.</p>
+    </section>
+
+    <section id="mcp">
+      <h2>From Claude, Cursor and other AI agents</h2>
+      <p>With the free <code>slideport-mcp</code> server, an AI agent sends the page, deck or document it has made straight into Figma. Keep Slideport open in Figma; the Import tab says <b>AI agent connected</b>.</p>
+      <ul>
+        <li><b>Claude Code</b>: <code>claude mcp add slideport -- npx -y slideport-mcp</code></li>
+        <li><b>Claude Desktop, Cursor and other MCP clients</b>: add a server with the command <code>npx -y slideport-mcp</code>.</li>
+      </ul>
+      <p>Then ask, for example: “Make a pricing page and send it to Figma” or “Turn ~/Desktop/review.pptx into Figma frames”. The agent can send HTML, a local .html, .pptx, .docx or .pdf file, or a public URL. Everything runs on your computer; imports count towards your plan as usual. Turn it off in Settings → <b>Accept pages from AI agents (MCP)</b>.</p>
+    </section>
+
+    <section id="chrome">
+      <h2>Pages behind a login: Slideport for Chrome</h2>
+      <p>The free Slideport extension for Chrome captures a page exactly as you see it — signed in, with filled-in fields and open menus — or a single block you pick with the mouse.</p>
+      <ol>
+        <li>On the page, click the Slideport icon (or press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>).</li>
+        <li>Choose <b>Capture this page</b>, or <b>Pick a block</b> and click a card, form or section. <kbd>↑</kbd> <kbd>↓</kbd> grow or shrink the selection, <kbd>Enter</kbd> captures, <kbd>Esc</kbd> cancels.</li>
+        <li>Click <b>Copy for Figma</b> and press <kbd>⌘V</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd> in the Slideport plugin window. Or download the <code>.slideport.html</code> file and drop it in.</li>
+      </ol>
+      <p>Images from the site are packed into the capture, because they can only be loaded with your login. A picked block is imported as its own frame. The extension runs only when you click it, never captures passwords and sends nothing to our servers.</p>
     </section>
 
     <section id="export-pptx">
@@ -145,22 +213,25 @@
         <tr><td>Exact + text</td><td>Each slide is an exact picture with text boxes on top. Pixel-perfect, text stays editable.</td></tr>
         <tr><td>Images</td><td>Each slide is one picture.</td></tr>
       </table>
-      <p>Slides follow the order of frames on the canvas: by rows, left to right. Before export you see thumbnails and counts of texts, shapes and pictures. After export a report shows what stayed editable, what became a picture and why, and which fonts are needed.</p>
+      <p>Slides follow the order of frames on the canvas, by rows, left to right; drag the thumbnails to change it. A file name template like <code>{name} · {date}</code> names the download. Before export you see thumbnails and counts of texts, shapes and pictures. After export a report shows what stayed editable, what became a picture and why, and which fonts are needed.</p>
       <h3>In PowerPoint</h3>
       <ul>
         <li>Plates are Rounded Rectangle shapes; change the radius with the yellow handle. Fill, gradient, stroke and shadow are normal shape properties.</li>
         <li>Text boxes keep font, size, bold, italic, color, line height and letter spacing for each run.</li>
         <li>Pictures keep cropping and radius; rotated pictures stay rotated.</li>
-        <li>Icons and vectors are SVG pictures: right-click → <b>Convert to Shape</b> to make them shapes.</li>
-        <li>Nested frames become groups.</li>
+        <li>Icons and vectors become native PowerPoint shapes you can recolor; complex ones fall back to SVG pictures.</li>
+        <li>The deck theme takes your brand colors and heading and body fonts, so new slides added in PowerPoint match. Optionally a palette slide is added at the end.</li>
+        <li>Nested frames become groups. Tables from Figma Slides and FigJam become real PowerPoint tables.</li>
       </ul>
       <p>What PowerPoint can't do is simplified: of several shadows the strongest is kept, and different corner radii become equal, except top-only and bottom-only. Photos over 300&nbsp;KB without transparency are re-encoded as JPEG when <b>Compress images</b> is on. Fonts must be installed on the computer where the deck is opened.</p>
+      <h3>For Google Slides</h3>
+      <p>Tick <b>For Google Slides</b> before downloading. Google Slides ignores embedded fonts and knows only Google Fonts and a few system fonts, so Slideport keeps those and replaces the rest with the closest Google Font — Helvetica becomes Arial, SF Pro becomes Inter, serif fonts become Noto Serif, monospaced ones Roboto Mono. The report lists every replacement. Then open Google Slides → <b>Open file picker</b> → <b>Upload</b> and choose the file.</p>
       <figure><img src="../assets/screenshot-3-powerpoint.jpg" alt="Figma frames exported to PowerPoint" loading="lazy" width="1600" height="960"></figure>
     </section>
 
     <section id="export-pdf">
       <h2>Export to PDF</h2>
-      <p>Next to <b>Download .pptx</b> is <b>PDF</b>. One selected frame becomes a vector PDF made by Figma. Several frames become one PDF with a page per frame, rendered at 2×.</p>
+      <p>Next to <b>Download .pptx</b> is <b>PDF</b>. Every selected frame becomes a vector page made by Figma, and all pages are merged into one PDF. Text stays selectable and searchable.</p>
     </section>
 
     <section id="export-html">
@@ -173,13 +244,17 @@
         <li>Several frames: stacked sections on one page, or separate files with a shared CSS.</li>
         <li><b>Everything in one file</b> puts images and styles inside a single .html. Google Fonts are linked when the font is available there.</li>
       </ul>
+      <p>Fonts can go into the archive as files with <code>@font-face</code>; Google Fonts are linked.</p>
+      <h3>Code for a selection</h3>
+      <p>The <b>Code</b> box shows the selected layers as HTML + CSS, Tailwind or React. Click <b>Copy</b>. Copying code doesn't count towards the free exports.</p>
       <p>The layout has the frame's fixed width and no responsive rules. It's a starting point for a developer, not a finished responsive site.</p>
     </section>
 
     <section id="settings">
       <h2>Settings</h2>
       <ul>
-        <li><b>Language</b>: English or Russian.</li>
+        <li><b>Language</b>: English, Español, Português, Deutsch, Français, Italiano, 日本語, 한국어, 中文, Русский.</li>
+        <li><b>Badge</b>: a small “your file is ready” label inside the first imported frame. Turn it off here.</li>
         <li><b>Import and export defaults</b>: the options the settings sheet starts with.</li>
         <li><b>Font substitution</b>: when a font is installed under a different name than on the page, for example <code>Alfa → Alfa Interface Sans</code>. Separate several with <code>;</code>. The plugin remembers it.</li>
         <li><b>Proxy for URLs</b>: the default Slideport proxy, or your own address and key.</li>
@@ -191,11 +266,11 @@
     <section id="limits">
       <h2>Limits</h2>
       <ul>
-        <li>Pages behind a login, and sites that block data-center traffic, can't be fetched by URL. Save them as .html and drop the file.</li>
-        <li>CSS grid comes in with absolute positions. Rotation is kept for pictures, icons and single texts, not for rotated blocks with content.</li>
+        <li>Pages behind a login, and sites that block data-center traffic, can't be fetched by URL. Capture them with <a href="#chrome">Slideport for Chrome</a> or save them as .html and drop the file.</li>
+        <li>Rotation is kept for pictures, icons and single texts, not for rotated blocks with content.</li>
         <li>If a font is missing in Figma, the closest one is used (usually Inter) and the plugin names the replaced fonts.</li>
         <li>Images from sites that forbid loading come in as grey placeholders with a label.</li>
-        <li>In .pptx: charts, SmartArt and EMF/WMF pictures are placeholders. In PDF: scans are pictures, close columns may merge.</li>
+        <li>In .pptx: SmartArt, rare chart types and EMF/WMF pictures are placeholders. In PDF: scans are pictures, close columns may merge.</li>
       </ul>
     </section>
 
@@ -205,6 +280,7 @@
         <tr><th>Plan</th><th>Price</th><th>What's included</th></tr>
         <tr><td>Free</td><td>$0</td><td>15 imports and 3 exports (PowerPoint, PDF or HTML) per calendar month. No account needed.</td></tr>
         <tr><td>Pro</td><td>$5/month or $29/year</td><td>Unlimited imports and exports. 7-day free trial in the plugin, 14-day money-back guarantee.</td></tr>
+        <tr><td>Pro Lifetime</td><td>$79 once</td><td>Pro forever, every future update included, no subscription. 14-day money-back guarantee.</td></tr>
       </table>
       <p>Pro is sold on the <a href="pricing/">pricing page</a> through lava.top. When the free limit runs out, or any time you click <b>Get Pro</b>, the plugin opens that page. After paying, the page shows your personal license key: open <b>Settings → Slideport Pro</b> and enter the email you used at checkout and that key. Cancel any time in your lava.top account (My purchases). Refunds: within 14 days, see the <a href="refunds/">refund policy</a>.</p>
     </section>

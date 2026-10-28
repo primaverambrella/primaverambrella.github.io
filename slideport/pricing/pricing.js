@@ -5,7 +5,9 @@
   const PRICES = {
     yearly: { price: '$29 <small>/ year</small>', sub: 'About $2.40 a month, billed once a year' },
     monthly: { price: '$5 <small>/ month</small>', sub: 'Billed monthly' },
+    lifetime: { price: '$79 <small>once</small>', sub: 'Pay once, Pro forever, every future update included', refund: '14-day money-back guarantee, no subscription' },
   };
+  const REFUND = '14-day money-back guarantee, cancel any time';
   let period = 'yearly';
   const $ = (s) => document.querySelector(s);
   const buy = $('[data-buy]');
@@ -18,12 +20,13 @@
   const uid = (params.get('uid') || '').slice(0, 64);
   // ?promo=CODE applies a Lava.top promo code to the checkout (also used for our own test orders).
   const promo = (params.get('promo') || '').slice(0, 36);
-  if (params.get('period') === 'monthly') period = 'monthly';
+  if (params.get('period') === 'monthly' || params.get('period') === 'lifetime') period = params.get('period');
 
   function showPeriod() {
     document.querySelectorAll('[data-period]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.period === period)));
     $('[data-price]').innerHTML = PRICES[period].price;
     $('[data-price-sub]').textContent = PRICES[period].sub;
+    $('[data-refund-note]').textContent = PRICES[period].refund || REFUND;
   }
   document.querySelectorAll('[data-period]').forEach((b) => b.addEventListener('click', () => { period = b.dataset.period; showPeriod(); }));
   showPeriod();
@@ -53,7 +56,9 @@
       location.href = j.url;
     } catch (e) {
       buy.disabled = false; buy.textContent = 'Get Pro';
-      note.textContent = e.message === 'checkout is not configured' ? 'Online checkout is being set up. Until then, the free plan has every feature.' : 'Checkout could not open. Try again in a minute or write to us.';
+      note.textContent = e.message === 'checkout is not configured' ? 'Online checkout is being set up. Until then, the free plan has every feature.'
+        : e.message === 'lifetime is not configured' ? 'Lifetime opens very soon. Yearly and monthly plans are available now.'
+        : 'Checkout could not open. Try again in a minute or write to us.';
     }
   });
   emailIn.addEventListener('input', () => emailIn.setCustomValidity(''));
