@@ -148,3 +148,23 @@ document.querySelectorAll('[data-buy-card]').forEach((card) => {
     }
   });
 });
+
+// Lifetime launch price: the server says whether it is still on and how many places are left.
+(async () => {
+  const cards = document.querySelectorAll('[data-life-price]');
+  if (!cards.length) return;
+  let st = null;
+  try { st = await (await fetch(SLIDEPORT_API.base + '/launch?key=' + encodeURIComponent(SLIDEPORT_API.key))).json(); } catch (e) { return; }
+  document.querySelectorAll('[data-buy-card="lifetime"]').forEach((card) => {
+    const price = card.querySelector('[data-life-price]'), sub = card.querySelector('[data-life-sub]');
+    const badge = card.querySelector('[data-life-badge]'), btn = card.querySelector('[data-life-btn]');
+    if (st && st.active) {
+      if (sub) sub.innerHTML = '<b>' + st.left + ' of ' + st.limit + ' left</b> at the launch price — then $' + st.regular;
+    } else if (st) {
+      if (price) price.innerHTML = '$' + st.regular + ' <small>once</small>';
+      if (sub) sub.innerHTML = 'Everything in Pro, <b>forever</b>';
+      if (badge) badge.textContent = 'Best value';
+      if (btn) btn.textContent = 'Buy once — $' + st.regular;
+    }
+  });
+})();
