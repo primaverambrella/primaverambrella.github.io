@@ -167,7 +167,7 @@ document.querySelectorAll('[data-buy-card]').forEach((card) => {
       if (badge) badge.textContent = 'Best value';
       if (btn) btn.textContent = 'Buy once — $' + st.regular;
     });
-    document.querySelectorAll('[data-launch-timer], .launch-bar').forEach((el) => { el.hidden = true; });
+    document.querySelectorAll('[data-launch-timer], .launch-bar, [data-launch-only]').forEach((el) => { el.hidden = true; });
   };
   if (!active()) return regular();
   document.querySelectorAll('[data-life-sub]').forEach((sub) => {
@@ -283,9 +283,9 @@ document.querySelectorAll('[data-carousel]').forEach((car) => {
   const choice = get();
   if (choice === 'yes') load(); else if (choice !== 'no') banner();
   // «Analytics settings» in the footer reopens the choice.
-  document.querySelectorAll('.footer .bottom').forEach((row) => {
+  document.querySelectorAll('.footer .bottom > span:first-child').forEach((span) => {
     const a = document.createElement('a'); a.href = '#'; a.textContent = 'Analytics settings';
     a.addEventListener('click', (e) => { e.preventDefault(); banner(); });
-    row.appendChild(a);
+    span.append(' · ', a);
   });
 })();
