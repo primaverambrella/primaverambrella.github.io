@@ -9,7 +9,7 @@ if (window.top !== window.self) {
 // email: support address (Gmail «Slideport Support», auto-reply on); leave empty to hide it.
 const SITE = {
   community: '',
-  email: 'marinecalls@gmail.com',
+  email: 'marinekollins@gmail.com',
   issues: 'https://github.com/primaverambrella/primaverambrella.github.io/issues/new',
   // legalName: seller's legal name for Terms, if a payment provider asks for it; empty shows "Primavera Studio".
   legalName: '',
