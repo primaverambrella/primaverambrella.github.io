@@ -48,14 +48,14 @@
       <h2>What stays on your computer</h2>
       <ul>
         <li>Your Figma document. The plugin reads selected frames only to build an export file, and that file is created on your computer. Nothing from your Figma file is uploaded to us or anyone else.</li>
-        <li>Files you drop into the plugin: PowerPoint, Word and PDF. They are parsed inside the plugin window and never uploaded.</li>
+        <li>Files you drop into the plugin: HTML, website archives, PowerPoint, Word and PDF. They are parsed inside the plugin window and never uploaded.</li>
         <li>Your settings: language, defaults, font substitutions. They are stored in Figma's plugin storage on your device.</li>
       </ul>
     </section>
 
 
     <section>
-      <h2>Anonymous usage statistics</h2>
+      <h2>Website and HTML imports</h2><p>When you import a public URL, the requested address is sent to the Slideport proxy on Cloudflare to fetch the page and its resources. JavaScript pages may be rendered using Cloudflare Browser Rendering. The plugin can also request images, stylesheets and fonts from original hosts and CDNs, which receive the resource URL and network information needed to serve it. Local file imports are parsed in the plugin. No MCP bridge or AI-agent connection is enabled.</p></section><section><h2>Anonymous usage statistics</h2>
       <p>To find bugs and see which features are used, the plugin sends anonymous events to PostHog (US region):</p>
       <ul>
         <li>the plugin opened, which screen was shown, which button was clicked;</li>

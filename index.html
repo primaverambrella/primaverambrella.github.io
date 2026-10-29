@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev https://*.clarity.ms; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
-<title>Slideport — PowerPoint, Word and PDF to Figma, and back</title>
-<meta name="description" content="A Figma plugin for Office files, both ways. PowerPoint, Word and PDF become editable Figma layers with your brand as styles and variables. Export editable PowerPoint, vector PDF or Google Slides. Files stay on your computer. $5 a month.">
-<meta property="og:title" content="Slideport — PowerPoint, Word and PDF to Figma, and back">
-<meta property="og:description" content="PowerPoint, Word and PDF into editable Figma layers. Out as editable PowerPoint, vector PDF or Google Slides. Files never leave your computer.">
+<title>Slideport — HTML, PowerPoint, Word and PDF to Figma, and back</title>
+<meta name="description" content="A Figma plugin for HTML, websites and Office files, both ways. HTML, websites, PowerPoint, Word and PDF become editable Figma layers with your brand as styles and variables. Export editable PowerPoint, vector PDF or Google Slides. Files stay on your computer. $5 a month.">
+<meta property="og:title" content="Slideport — HTML, PowerPoint, Word and PDF to Figma, and back">
+<meta property="og:description" content="HTML, websites, PowerPoint, Word and PDF into editable Figma layers. Export HTML/CSS, PowerPoint, PDF or Google Slides. No MCP bridge.">
 <meta property="og:image" content="https://primaverambrella.github.io/assets/og.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -37,8 +37,8 @@
 <header class="hero">
   <div class="wrap">
     <span class="pill"><i></i>New: Word, charts, design systems, Figma Slides</span>
-    <h1>PowerPoint, Word, PDF into Figma.<br><em>And back out.</em></h1>
-    <p class="hero-sub">Client decks, Word briefs and PDF reports become real, editable Figma layers — your brand already turned into styles and variables. Then send it back as an editable PowerPoint, a vector PDF or a deck for Google Slides.</p>
+    <h1>HTML, PowerPoint, Word, PDF into Figma.<br><em>And back out.</em></h1>
+    <p class="hero-sub">HTML pages, websites, client decks, Word briefs and PDF reports become editable Figma layers — your brand already turned into styles and variables. Export HTML/CSS, editable PowerPoint, vector PDF or a deck for Google Slides.</p>
     <div class="hero-lead" id="top-lead">
       <form class="lead-form dark" data-lead-form="hero" novalidate><input type="email" autocomplete="email" placeholder="Your work email" aria-label="Email"><button class="btn lime" type="submit">Get Slideport free</button></form>
       <p class="lead-msg" data-lead-msg>Install link the day Slideport goes live — plus 7 days of Pro. No spam.</p>
@@ -47,13 +47,13 @@
     <ul class="trust">
       <li>Both directions in one plugin</li>
       <li>7 days of Pro, no card</li>
-      <li>Files never leave your computer</li>
+      <li>Local files are parsed on your computer</li>
       <li>10 languages</li>
     </ul>
 
     <div class="hero-shot carousel" data-carousel>
       <div class="car-tabs" role="tablist" aria-label="Screenshots">
-        <button type="button" role="tab" aria-selected="true"><span>01</span>Drop a PowerPoint, Word or PDF file<i></i></button>
+        <button type="button" role="tab" aria-selected="true"><span>01</span>Drop a file, paste HTML or load a URL<i></i></button>
         <button type="button" role="tab" aria-selected="false"><span>02</span>PowerPoint as editable layers<i></i></button>
         <button type="button" role="tab" aria-selected="false"><span>03</span>Frames to an editable .pptx<i></i></button>
       </div>
@@ -75,12 +75,12 @@
     <div class="flow-row">
       <div class="flow-side">
         <span class="flow-label">In</span>
-        <span class="chip">PowerPoint</span><span class="chip">Word</span><span class="chip">PDF</span>
+        <span class="chip">HTML · Web</span><span class="chip">PowerPoint</span><span class="chip">Word</span><span class="chip">PDF</span>
       </div>
       <span class="flow-hub"><img src="assets/icon-128.png" alt="" width="44" height="44"></span>
       <div class="flow-side">
         <span class="flow-label">Out</span>
-        <span class="chip">PowerPoint</span><span class="chip">Google Slides</span><span class="chip">PDF</span>
+        <span class="chip">HTML · CSS</span><span class="chip">PowerPoint</span><span class="chip">Google Slides</span><span class="chip">PDF</span>
       </div>
     </div>
   </div>
@@ -93,7 +93,7 @@
       <h2>Not a screenshot.<br><em>Real layers.</em></h2>
       <p>Pick the job, drop the file, get layers you can work with — not a picture to trace over.</p>
     </div>
-    <div class="jobs">
+    <div class="jobs"><article class="job"><span class="fmt">HTML · Web</span><h3>HTML into editable layers — and back</h3><p>Drop HTML or a website archive, paste code, or load a public URL. Text stays text and blocks become frames. Export frames as HTML/CSS with assets. No MCP bridge required.</p></article>
       <article class="job">
         <span class="fmt">PPTX</span>
         <h3>Make a client's deck editable</h3>

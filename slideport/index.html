@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://html2figma-proxy.asr201.workers.dev https://*.clarity.ms; frame-src 'none'; form-action 'none'; base-uri 'self'; object-src 'none'">
 <title>Slideport docs</title>
-<meta name="description" content="How to use Slideport: import PowerPoint, Word and PDF into Figma; export frames to PowerPoint, PDF and Google Slides.">
+<meta name="description" content="How to use Slideport: import HTML, websites, PowerPoint, Word and PDF into Figma; export frames to HTML/CSS, PowerPoint, PDF and Google Slides.">
 <meta property="og:title" content="Slideport docs">
-<meta property="og:description" content="Import PowerPoint, Word and PDF into Figma. Export frames to PowerPoint, PDF and Google Slides.">
+<meta property="og:description" content="Import HTML, websites, PowerPoint, Word and PDF into Figma. Export frames to PowerPoint, PDF and Google Slides.">
 <meta property="og:image" content="https://primaverambrella.github.io/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -36,7 +36,7 @@
 <header class="doc-hero">
   <div class="wrap">
     <div class="name"><img src="../assets/icon-128.png" alt=""><h1>Slideport docs</h1></div>
-    <p>Import PowerPoint, Word and PDF into Figma as editable layers. Export Figma frames to PowerPoint, PDF and Google Slides.</p>
+    <p>Import HTML, websites, PowerPoint, Word and PDF into Figma as editable layers. Export Figma frames to HTML/CSS, PowerPoint, PDF and Google Slides.</p>
     <div class="actions">
       <a class="btn primary" data-community href="#"><span data-label>Open in Figma Community</span></a>
       <a class="btn ghost" data-issues href="#">Report a problem</a>
@@ -50,7 +50,7 @@
     <ol>
       <li><a href="#start">Getting started</a></li>
       <li><a href="#update">Update in place</a></li>
-      <li><a href="#pptx">PowerPoint import</a></li>
+      <li><a href="#html-import">HTML &amp; website import</a></li><li><a href="#html-export">HTML &amp; CSS export</a></li><li><a href="#pptx">PowerPoint import</a></li>
       <li><a href="#docx">Word import</a></li>
       <li><a href="#pdf">PDF import</a></li>
       <li><a href="#design-system">Design system</a></li>
@@ -90,6 +90,7 @@
       <p>The new frames take the old ones’ place, layer order and names; speaker-note stickies move with their slides. Press <kbd>⌘Z</kbd> to get the previous version back.</p>
     </section>
 
+    <section id="html-import"><h2>HTML and website import</h2><p>Drop an .html/.htm file, a .zip containing a website, or a saved .mhtml/.mht page. Use <b>Paste code manually</b> to paste HTML, or enter a public URL and click <b>Load</b>. Click <b>Import to Figma</b> after reviewing the settings.</p><p>Text becomes editable text layers; blocks become frames; SVG icons stay vectors. Choose viewport width, additional tablet/phone viewports, Auto Layout, image resolution and font replacements. Files are parsed locally. For URL imports the Slideport proxy fetches the public page and its assets; private or protected sites may require a saved HTML file.</p><p>No MCP connection or browser extension is required. The AI-agent bridge is disabled.</p></section><section id="html-export"><h2>Export HTML and CSS</h2><p>Select frames, open <b>Export → HTML · site</b> and download a ZIP containing index.html, styles.css and assets, or choose a single HTML file. Auto Layout becomes flexbox; other geometry uses positioned elements. The result is a starting point for development, with complex effects and responsive behavior requiring review.</p></section>
     <section id="pptx">
       <h2>PowerPoint import</h2>
       <p>Drop a <code>.pptx</code>. Every slide becomes a frame and the slides line up in a row. Drop several files at once to import them one after another. Everything is parsed inside the plugin; the file is not uploaded.</p>
@@ -204,7 +205,7 @@
       <h2>Pricing</h2>
       <table>
         <tr><th>Plan</th><th>Price</th><th>What's included</th></tr>
-        <tr><td>Free</td><td>$0</td><td>15 imports and 3 exports (PowerPoint or PDF) per calendar month. No account needed.</td></tr>
+        <tr><td>Free</td><td>$0</td><td>15 imports and 3 exports (PowerPoint, PDF or HTML) per calendar month. No account needed.</td></tr>
         <tr><td>Pro</td><td>$5/month or $29/year</td><td>Unlimited imports and exports. 7-day free trial in the plugin, 14-day money-back guarantee.</td></tr>
         <tr><td>Pro Lifetime</td><td>$79 once ($49 for the first 100 buyers)</td><td>Pro forever, every future update included, no subscription. 14-day money-back guarantee.</td></tr>
       </table>
@@ -215,7 +216,7 @@
       <h2>Privacy</h2>
       <ul>
         <li>Conversion runs inside the plugin. Nothing from your Figma file is uploaded anywhere.</li>
-        <li>PowerPoint, Word and PDF files you drop never leave your computer.</li>
+        <li>HTML, PowerPoint, Word and PDF files you drop are parsed locally.</li><li>URL imports send the requested public address to the Slideport proxy and load remote assets from their hosts.</li>
         <li>Anonymous usage statistics help fix bugs. No design content or texts are included. Turn them off in Settings.</li>
       </ul>
       <p>Full text: <a href="privacy/">Privacy policy</a>.</p>
